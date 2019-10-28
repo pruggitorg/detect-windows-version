@@ -16,6 +16,7 @@ namespace DetectWindowsVersionDotNET
                     $"{System.Environment.OSVersion.Version.Build}" +
                     $"");
 
+			// Wait for input
             Console.ReadKey();
         }
     }
