@@ -5,15 +5,20 @@ using System.Security;
 
 namespace OSVersionExtension
 {
+    [SecurityCritical]
     public static class OSVersion
     {
         /// <summary>
         /// taken from https://stackoverflow.com/a/49641055
         /// </summary>
+        /// <remarks>
+        /// References:
+        /// OSVERSIONINFOEX uses incorrect charset with RtlGetVersion() https://github.com/windows-toolkit/WindowsCommunityToolkit/issues/2095
+        /// </remarks>
         [SecurityCritical]
-        [DllImport("ntdll.dll", SetLastError = true)]
+        [DllImport("ntdll.dll", SetLastError = true, CharSet = CharSet.Unicode)]
         internal static extern bool RtlGetVersion(ref OSVERSIONINFOEX versionInfo);
-        [StructLayout(LayoutKind.Sequential)]
+        [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Unicode)]
         internal struct OSVERSIONINFOEX
         {
             // The OSVersionInfoSize field must be set to Marshal.SizeOf(typeof(OSVERSIONINFOEX))
@@ -36,6 +41,7 @@ namespace OSVersionExtension
         /// </summary>
         /// <remarks>Calls the Windows Kernel function RtlGetVersion routine. </remarks>
         /// <returns></returns>
+        [SecurityCritical]
         public static VersionInfo GetOSVersion()
             {
             var osVersionInfo = new OSVERSIONINFOEX { OSVersionInfoSize = Marshal.SizeOf(typeof(OSVERSIONINFOEX)) };

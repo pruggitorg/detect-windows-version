@@ -8,15 +8,11 @@ namespace OSVersionExt
 {
     public class VersionInfo
     {
-        public int Build { get; private set; }
-        public int Minor { get; private set; }
-        public int Major { get; private set; }
+        public Version Version { get; private set; }
 
         public VersionInfo(int major, int minor, int build)
         {
-            this.Major = major;
-            this.Minor = minor;
-            this.Build = build;
+            this.Version = new Version(major, minor, build);
         }
-    }
+    }   
 }

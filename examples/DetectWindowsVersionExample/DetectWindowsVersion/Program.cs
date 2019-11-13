@@ -17,9 +17,9 @@ namespace DetectWindowsVersion
             // Windows 10 / Server 2019 / Server 2016 right away.
 
             Console.WriteLine($"" +
-            $"{OSVersion.GetOSVersion().Major}." +
-            $"{OSVersion.GetOSVersion().Minor}." +
-            $"{OSVersion.GetOSVersion().Build}" +
+            $"{OSVersion.GetOSVersion().Version.Major}." +
+            $"{OSVersion.GetOSVersion().Version.Minor}." +
+            $"{OSVersion.GetOSVersion().Version.Build}" +
             $"");
 
             Console.ReadKey();
