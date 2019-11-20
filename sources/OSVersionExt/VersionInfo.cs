@@ -12,7 +12,8 @@ namespace OSVersionExt
 
         public VersionInfo(int major, int minor, int build)
         {
-            this.Version = new Version(major, minor, build);
+            this.Version = new Version(major, minor, build);            
         }
-    }   
+    }
+   
 }
