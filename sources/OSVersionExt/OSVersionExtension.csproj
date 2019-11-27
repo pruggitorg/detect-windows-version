@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="SystemMetrics.cs" />
     <Compile Include="VersionInfo.cs" />
     <Compile Include="OSVersion.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
