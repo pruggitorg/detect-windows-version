@@ -127,10 +127,14 @@ namespace OSVersionExtension
             else if (MajorVersion == 6 && MinorVersion == 0 && IsServer)
                 return OperatingSystem.WindowsServer2008;
             else if (MajorVersion == 6 && MinorVersion == 0 && IsWorkstation)
-                return OperatingSystem.WindowsServer2008;
+                return OperatingSystem.WindowsVista;
             else if (MajorVersion == 5 && MinorVersion == 2 && ReadSystemMetrics(SystemMetric.SM_SERVERR2) != 0)
                 return OperatingSystem.WindowsServer2003R2;
-            else if (MajorVersion == 5 && MinorVersion == 2 && ReadSystemMetrics(SystemMetric.SM_SERVERR2) == 0)
+            else if (MajorVersion == 5
+                     && MinorVersion == 2
+                     && ReadSystemMetrics(SystemMetric.SM_SERVERR2) == 0
+                     && (_suiteMask & SuiteMask.VER_SUITE_WH_SERVER) != SuiteMask.VER_SUITE_WH_SERVER
+                     )
                 return OperatingSystem.WindowsServer2003;
             else if (MajorVersion == 5 && MinorVersion == 2 && (_suiteMask & SuiteMask.VER_SUITE_WH_SERVER) == SuiteMask.VER_SUITE_WH_SERVER)
                 return OperatingSystem.WindowsHomeServer;
@@ -153,7 +157,7 @@ namespace OSVersionExtension
         WindowsXPProx64,
         WindowsHomeServer,
         WindowsServer2003,
-        WindowsServer2003R2,
+        WindowsServer2003R2,    // tested
         WindowsVista,
         WindowsServer2008,
         WindowsServer2008R2,
