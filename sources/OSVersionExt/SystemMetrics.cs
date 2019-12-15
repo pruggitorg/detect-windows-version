@@ -13,6 +13,7 @@ namespace OSVersionExt
     /// ai_productions@verizon.net or osirisgothra@hotmail.com
     /// Obtained on pinvoke.net, please contribute your code to support the wiki!
     /// </summary>
+    /// <remarks>https://docs.microsoft.com/de-de/windows/win32/api/winuser/nf-winuser-getsystemmetrics</remarks>
     public enum SystemMetric : int
     {
         /// <summary>

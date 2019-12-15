@@ -106,6 +106,11 @@ namespace OSVersionExtension
             return GetSystemMetrics(smIndex);
         }
 
+        /// <summary>
+        /// Returns the Windows version.
+        /// </summary>
+        /// <returns></returns>
+        /// <remarks>detection based on https://docs.microsoft.com/de-de/windows-hardware/drivers/ddi/wdm/ns-wdm-_osversioninfoexw#remarks </remarks>
         public static OperatingSystem GetOperatingSystem()
         {
             if (MajorVersion == 10 && MinorVersion == 0 && IsWorkstation)
@@ -166,7 +171,7 @@ namespace OSVersionExtension
         Windows8,
         Windows81,
         WindowsServer2012R2,    // tested
-        WindowsServer20162019,
+        WindowsServer20162019,  // tested Server 2019
         Windows10               // tested
     }
 
