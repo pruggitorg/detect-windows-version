@@ -9,16 +9,17 @@ namespace OSVersionExtension
     public static class OSVersion
     {
         /// <summary>
-        /// taken from https://stackoverflow.com/a/49641055
+        /// Detects Windows version
         /// </summary>
         /// <remarks>
         /// References:
         /// OSVERSIONINFOEXA structure https://docs.microsoft.com/de-de/windows/win32/api/winnt/ns-winnt-osversioninfoexa
         /// OSVERSIONINFOEX uses incorrect charset with RtlGetVersion() https://github.com/windows-toolkit/WindowsCommunityToolkit/issues/2095
+        /// taken from https://stackoverflow.com/a/49641055
         /// </remarks>
         [SecurityCritical]
         [DllImport("ntdll.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        internal static extern bool RtlGetVersion(ref OSVERSIONINFOEX versionInfo);
+        internal static extern NTSTATUS RtlGetVersion(ref OSVERSIONINFOEX versionInfo);
         [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Unicode)]
         internal struct OSVERSIONINFOEX
         {
@@ -69,7 +70,7 @@ namespace OSVersionExtension
         {
             var osVersionInfo = new OSVERSIONINFOEX { OSVersionInfoSize = Marshal.SizeOf(typeof(OSVERSIONINFOEX)) };
 
-            if (!RtlGetVersion(ref osVersionInfo))
+            if (RtlGetVersion(ref osVersionInfo) != NTSTATUS.STATUS_SUCCESS)
             {
                 // TODO: Error handling, call GetVersionEx, etc.
             }
@@ -256,5 +257,13 @@ namespace OSVersionExtension
         VER_SUITE_WH_SERVER = 0x00008000
 
         //VER_SUITE_MULTIUSERTS = 0x00020000
+    }
+
+    enum NTSTATUS : uint
+    {
+        /// <summary>
+        /// The operation completed successfully. 
+        /// </summary>
+        STATUS_SUCCESS = 0x00000000
     }
 }
