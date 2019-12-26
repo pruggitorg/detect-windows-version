@@ -47,6 +47,9 @@
     <Compile Include="VersionInfo.cs" />
     <Compile Include="OSVersion.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Win32ApiProvider.cs" />
+    <Compile Include="Win32API\IWin32API.cs" />
+    <Compile Include="Win32API\Win32ApiEnums.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
