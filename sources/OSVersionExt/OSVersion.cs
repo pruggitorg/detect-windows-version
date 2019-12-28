@@ -6,34 +6,36 @@ using System.Security;
 
 namespace OSVersionExtension
 {
+    /// <summary>
+    /// Detects Windows version.
+    /// </summary>
+    /// <remarks>
+    /// References:
+    /// OSVERSIONINFOEXA structure https://docs.microsoft.com/de-de/windows/win32/api/winnt/ns-winnt-osversioninfoexa
+    /// OSVERSIONINFOEX uses incorrect charset with RtlGetVersion() https://github.com/windows-toolkit/WindowsCommunityToolkit/issues/2095
+    /// taken from https://stackoverflow.com/a/49641055
+    /// </remarks>
     [SecurityCritical]
     public static class OSVersion
     {
-        /// <summary>
-        /// Detects Windows version
-        /// </summary>
-        /// <remarks>
-        /// References:
-        /// OSVERSIONINFOEXA structure https://docs.microsoft.com/de-de/windows/win32/api/winnt/ns-winnt-osversioninfoexa
-        /// OSVERSIONINFOEX uses incorrect charset with RtlGetVersion() https://github.com/windows-toolkit/WindowsCommunityToolkit/issues/2095
-        /// taken from https://stackoverflow.com/a/49641055
-        /// </remarks>
+        private static readonly IWin32API _win32ApiProviderDefault;
+        private static ProductType _productType;
+        private static SuiteMask _suiteMask;
+
+        private static IWin32API _win32ApiProvider;
+
         public static int MajorVersion { get; private set; }
         public static int MinorVersion { get; private set; }
         public static int BuildNumber { get; private set; }
         public static bool IsWorkstation { get => GetIfWorkStation(); }
         public static bool IsServer { get => GetIfServer(); }
 
-        private static ProductType _productType;
-        private static SuiteMask _suiteMask;
-
-        private static readonly IWin32API _win32ApiProvider;
-
         [SecurityCritical]
         static OSVersion()
         {
-            _win32ApiProvider = new Win32ApiProvider();
-            DetectWindowsVersion(_win32ApiProvider);
+            _win32ApiProviderDefault = new Win32ApiProvider();
+            _win32ApiProvider = _win32ApiProviderDefault;
+            Initialize();            
         }
 
         /// <summary>
@@ -44,47 +46,6 @@ namespace OSVersionExtension
         public static VersionInfo GetOSVersion()
         {
             return new VersionInfo(MajorVersion, MinorVersion, BuildNumber);
-        }
-
-        private static void DetectWindowsVersion(IWin32API win32ApiProvider)
-        {             
-            var osVersionInfo = new OSVERSIONINFOEX { OSVersionInfoSize = Marshal.SizeOf(typeof(OSVERSIONINFOEX)) };
-
-            if (win32ApiProvider.RtlGetVersion(ref osVersionInfo) != NTSTATUS.STATUS_SUCCESS)
-            {
-                // TODO: Error handling, call GetVersionEx, etc.
-            }
-
-            MajorVersion = osVersionInfo.MajorVersion;
-            MinorVersion = osVersionInfo.MinorVersion;
-            BuildNumber = osVersionInfo.BuildNumber;
-
-            _productType = osVersionInfo.ProductType;
-            _suiteMask = osVersionInfo.SuiteMask;
-        }
-
-        private static bool GetIfServer()
-        {
-            return _productType == ProductType.DomainController
-                   || _productType == ProductType.Server;
-        }
-
-        private static bool GetIfWorkStation()
-        {
-            return _productType == ProductType.Workstation;
-        }
-
-        /// <summary>
-        /// The system metric or configuration setting to be retrieved. 
-        /// Note that all SM_CX* values are widths and all SM_CY* values are heights. 
-        /// Also note that all settings designed to return Boolean data represent TRUE as any nonzero value, and FALSE as a zero value.
-        /// </summary>
-        /// <param name="smIndex"></param>
-        /// <returns></returns>
-        /// <remarks>https://docs.microsoft.com/de-de/windows/win32/api/winuser/nf-winuser-getsystemmetrics</remarks>
-        private static int ReadSystemMetrics(SystemMetric smIndex)
-        {
-            return _win32ApiProvider.GetSystemMetrics(smIndex);
         }
 
         /// <summary>
@@ -133,6 +94,78 @@ namespace OSVersionExtension
 
             return OperatingSystem.Unknown;
         }
+
+        /// <summary>
+        /// Use custom Win32 API provider.
+        /// </summary>
+        /// <param name="win32ApiProvider"></param>
+        /// <exception cref="ArgumentNullException"></exception>
+        public static void SetWin32ApiProvider(IWin32API win32ApiProvider)
+        {
+            if (win32ApiProvider != null)
+            {
+                _win32ApiProvider = win32ApiProvider;
+                Initialize();
+            }
+            else
+                throw new ArgumentNullException();
+        }
+
+        /// <summary>
+        /// Sets the Win32API Provider to default.
+        /// </summary>
+        public static void SetWin32ApiProviderDefault()
+        {
+            _win32ApiProvider = _win32ApiProviderDefault;
+            Initialize();
+        }
+
+        private static void Initialize()
+        {
+            DetectWindowsVersion(_win32ApiProvider);
+        }
+
+        private static void DetectWindowsVersion(IWin32API win32ApiProvider)
+        {
+            var osVersionInfo = new OSVERSIONINFOEX { OSVersionInfoSize = Marshal.SizeOf(typeof(OSVERSIONINFOEX)) };
+
+            if (win32ApiProvider.RtlGetVersion(ref osVersionInfo) != NTSTATUS.STATUS_SUCCESS)
+            {
+                // TODO: Error handling, call GetVersionEx, etc.
+            }
+
+            MajorVersion = osVersionInfo.MajorVersion;
+            MinorVersion = osVersionInfo.MinorVersion;
+            BuildNumber = osVersionInfo.BuildNumber;
+
+            _productType = osVersionInfo.ProductType;
+            _suiteMask = osVersionInfo.SuiteMask;
+        }
+
+        private static bool GetIfServer()
+        {
+            return _productType == ProductType.DomainController
+                   || _productType == ProductType.Server;
+        }
+
+        private static bool GetIfWorkStation()
+        {
+            return _productType == ProductType.Workstation;
+        }
+
+        /// <summary>
+        /// The system metric or configuration setting to be retrieved. 
+        /// Note that all SM_CX* values are widths and all SM_CY* values are heights. 
+        /// Also note that all settings designed to return Boolean data represent TRUE as any nonzero value, and FALSE as a zero value.
+        /// </summary>
+        /// <param name="smIndex"></param>
+        /// <returns></returns>
+        /// <remarks>https://docs.microsoft.com/de-de/windows/win32/api/winuser/nf-winuser-getsystemmetrics</remarks>
+        private static int ReadSystemMetrics(SystemMetric smIndex)
+        {
+            return _win32ApiProvider.GetSystemMetrics(smIndex);
+        }
+
     }
 
     public enum OperatingSystem
