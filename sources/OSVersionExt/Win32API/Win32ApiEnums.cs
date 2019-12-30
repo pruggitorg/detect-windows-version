@@ -101,18 +101,18 @@ namespace OSVersionExt.Win32API
     public struct OSVERSIONINFOEX
     {
         // The OSVersionInfoSize field must be set to Marshal.SizeOf(typeof(OSVERSIONINFOEX))
-        internal int OSVersionInfoSize;
-        internal int MajorVersion;
-        internal int MinorVersion;
-        internal int BuildNumber;
-        internal int PlatformId;
+        public int OSVersionInfoSize;
+        public int MajorVersion;
+        public int MinorVersion;
+        public int BuildNumber;
+        public int PlatformId;
         [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 128)]
-        internal string CSDVersion;
-        internal ushort ServicePackMajor;
-        internal ushort ServicePackMinor;
-        internal SuiteMask SuiteMask;
-        internal ProductType ProductType;
-        internal byte Reserved;
+        public string CSDVersion;
+        public ushort ServicePackMajor;
+        public ushort ServicePackMinor;
+        public SuiteMask SuiteMask;
+        public ProductType ProductType;
+        public byte Reserved;
     }
 
 }
