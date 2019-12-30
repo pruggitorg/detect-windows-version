@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OSVersionExtension", "..\..
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DetectWindowsVersion", "DetectWindowsVersion\DetectWindowsVersion.csproj", "{670CE219-9503-41E0-8E51-22058A9C61A1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OSVersionExtensionTests", "..\..\sources\OSVersionExtensionTests\OSVersionExtensionTests\OSVersionExtensionTests.csproj", "{5E9D9588-51D2-4658-8CE5-C061F36E9499}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{670CE219-9503-41E0-8E51-22058A9C61A1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{670CE219-9503-41E0-8E51-22058A9C61A1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{670CE219-9503-41E0-8E51-22058A9C61A1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5E9D9588-51D2-4658-8CE5-C061F36E9499}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5E9D9588-51D2-4658-8CE5-C061F36E9499}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5E9D9588-51D2-4658-8CE5-C061F36E9499}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5E9D9588-51D2-4658-8CE5-C061F36E9499}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
