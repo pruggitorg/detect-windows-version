@@ -23,3 +23,6 @@ Target framework: .NET Framework 4 (as one of the checks calls Environment.Is64B
 | Windows XP  | -  |   |
 | Windows 2000  | -  |   |
 
+
+# Technical information
+Please refer to https://www.prugg.at/2019/09/09/properly-detect-windows-version-in-c-net-even-windows-10/
