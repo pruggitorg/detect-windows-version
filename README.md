@@ -6,7 +6,7 @@ Target framework: .NET Framework 4 (as one of the checks calls Environment.Is64B
 
 | Operating system  | tested | remarks |
 | ------------- | ------------- | -------------  |
-| Windows 10  | yes  | 1903 (build 18362)  |
+| Windows 10  | yes  | 1909 (build 18363), 1903 (build 18362)  |
 | Windows Server 2019  |yes  |   |
 | Windows Server 2016  | -  |   |
 | Windows Server 2012 R2  | yes  |   |
