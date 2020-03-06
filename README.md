@@ -16,7 +16,7 @@ Target framework: .NET Framework 4 (as one of the checks calls Environment.Is64B
 | Windows Server 2008 R2  | -  |   |
 | Windows Server 2008  | -  |   |
 | Windows Vista  | -  |   |
-| Windows Server 2003 R2  | -  |   |
+| Windows Server 2003 R2  | yes  |   |
 | Windows Server 2003  | -  |   |
 | Windows Home Server  | -  |   |
 | Windows XP 64-Bit Edition  | -  |   |
