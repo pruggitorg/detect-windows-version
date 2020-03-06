@@ -20,7 +20,8 @@ namespace DetectWindowsVersion
 
             Console.WriteLine($"OS type: {OSVersion.GetOperatingSystem()}");
             Console.WriteLine($"is workstation: {OSVersion.IsWorkstation}");
-            Console.WriteLine($"is server: {OSVersion.IsServer}");            
+            Console.WriteLine($"is server: {OSVersion.IsServer}");
+            Console.WriteLine($"64-Bit OS: {OSVersion.Is64BitOperatingSystem}");
 
             Console.ReadKey();
         }

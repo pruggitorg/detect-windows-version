@@ -8,13 +8,20 @@ using System.Text;
 
 namespace OSVersionExt
 {
+    /// <summary>
+    /// Win32 API Provider
+    /// </summary>
+    /// <remarks>CLR wrapper https://github.com/microsoft/referencesource/blob/master/mscorlib/microsoft/win32/win32native.cs </remarks>
     public class Win32ApiProvider : IWin32API
     {
+        private const String NTDLL = "ntdll.dll";
+        private const String USER32 = "user32.dll";
+
         [SecurityCritical]
-        [DllImport("ntdll.dll", EntryPoint = "RtlGetVersion", SetLastError = true, CharSet = CharSet.Unicode)]
+        [DllImport(NTDLL, EntryPoint = "RtlGetVersion", SetLastError = true, CharSet = CharSet.Unicode)]
         internal static extern NTSTATUS ntdll_RtlGetVersion(ref OSVERSIONINFOEX versionInfo);
 
-        [DllImport("user32.dll", EntryPoint = "GetSystemMetrics")]
+        [DllImport(USER32, EntryPoint = "GetSystemMetrics")]
         internal static extern int ntdll_GetSystemMetrics(SystemMetric smIndex);
 
 

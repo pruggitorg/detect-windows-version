@@ -43,6 +43,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EnvironmentProvider.cs" />
+    <Compile Include="Environment\IEnvironment.cs" />
     <Compile Include="SystemMetrics.cs" />
     <Compile Include="VersionInfo.cs" />
     <Compile Include="OSVersion.cs" />

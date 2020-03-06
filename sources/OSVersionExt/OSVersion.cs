@@ -1,4 +1,5 @@
 ﻿using OSVersionExt;
+using OSVersionExt.Environment;
 using OSVersionExt.Win32API;
 using System;
 using System.Runtime.InteropServices;
@@ -18,23 +19,31 @@ namespace OSVersionExtension
     [SecurityCritical]
     public static class OSVersion
     {
+        // default providers when class is instantiated or setted to default values
         private static readonly IWin32API _win32ApiProviderDefault;
+        private static readonly IEnvironment _environmentProviderDefault;
+
         private static ProductType _productType;
         private static SuiteMask _suiteMask;
 
         private static IWin32API _win32ApiProvider;
+        private static IEnvironment _environmentProvider;
 
         public static int MajorVersion { get; private set; }
         public static int MinorVersion { get; private set; }
         public static int BuildNumber { get; private set; }
         public static bool IsWorkstation { get => GetIfWorkStation(); }
         public static bool IsServer { get => GetIfServer(); }
+        public static bool Is64BitOperatingSystem { get => GetIf64BitOperatingSystem(); }
 
         [SecurityCritical]
         static OSVersion()
         {
             _win32ApiProviderDefault = new Win32ApiProvider();
+            _environmentProviderDefault = new EnvironmentProvider();
+
             _win32ApiProvider = _win32ApiProviderDefault;
+            _environmentProvider = _environmentProviderDefault;
             Initialize();            
         }
 
@@ -85,7 +94,7 @@ namespace OSVersionExtension
                 return OperatingSystem.WindowsServer2003;
             else if (MajorVersion == 5 && MinorVersion == 2 && (_suiteMask & SuiteMask.VER_SUITE_WH_SERVER) == SuiteMask.VER_SUITE_WH_SERVER)
                 return OperatingSystem.WindowsHomeServer;
-            else if (MajorVersion == 5 && MinorVersion == 2 && IsWorkstation && Environment.Is64BitOperatingSystem)
+            else if (MajorVersion == 5 && MinorVersion == 2 && IsWorkstation && Is64BitOperatingSystem)
                 return OperatingSystem.WindowsXPProx64;
             else if (MajorVersion == 5 && MinorVersion == 1)
                 return OperatingSystem.WindowsXP;
@@ -116,7 +125,7 @@ namespace OSVersionExtension
         /// </summary>
         public static void SetWin32ApiProviderDefault()
         {
-            _win32ApiProvider = _win32ApiProviderDefault;
+            _win32ApiProvider = _win32ApiProviderDefault;            
             Initialize();
         }
 
@@ -151,6 +160,11 @@ namespace OSVersionExtension
         private static bool GetIfWorkStation()
         {
             return _productType == ProductType.Workstation;
+        }
+
+        private static bool GetIf64BitOperatingSystem()
+        {
+            return _environmentProvider.Is64BitOperatingSystem();
         }
 
         /// <summary>
