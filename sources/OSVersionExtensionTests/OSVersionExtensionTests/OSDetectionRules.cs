@@ -121,6 +121,7 @@ namespace OSVersionExtensionTests
     {
         internal const int MAJORVERSION = 5;
         internal const int MINORVERSION = 2;
+        internal const ProductType PRODUCTTYPE = ProductType.Server;
         internal static readonly List<KeyValuePair<SystemMetric, int>> SYSTEMMETRICS = new List<KeyValuePair<SystemMetric, int>>()
                                             { new KeyValuePair<SystemMetric, int>( SystemMetric.SM_SERVERR2, 1 ) };
     }
@@ -133,6 +134,7 @@ namespace OSVersionExtensionTests
     {
         internal const int MAJORVERSION = 5;
         internal const int MINORVERSION = 2;
+        internal const ProductType PRODUCTTYPE = ProductType.Server;
         internal static readonly List<KeyValuePair<SystemMetric, int>> SYSTEMMETRICS = new List<KeyValuePair<SystemMetric, int>>()
                                             { new KeyValuePair<SystemMetric, int>( SystemMetric.SM_SERVERR2, 0 ) };
     }
@@ -149,12 +151,7 @@ namespace OSVersionExtensionTests
         internal const int MAJORVERSION = 5;
         internal const int MINORVERSION = 2;
         internal const ProductType PRODUCTTYPE = ProductType.Workstation;
-        // TODO: x64 detection without NET Framework 4.0
-
-        static WindowsXPProx64Rules()
-        {
-            throw new NotImplementedException("Detection currently relies on Environment.Is64BitOperatingSystem.");
-        }
+        internal const bool IS64BITOPERATINGSYSTEM = true;
     }
 
     internal static class WindowsXPRules

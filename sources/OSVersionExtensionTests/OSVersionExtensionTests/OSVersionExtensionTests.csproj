@@ -49,6 +49,8 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Mocks\EnvironmentProviderMock.cs" />
+    <Compile Include="Mocks\Win32ApiProviderMock.cs" />
     <Compile Include="OSDetectionRules.cs" />
     <Compile Include="OSDetectionTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

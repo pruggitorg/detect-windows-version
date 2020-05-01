@@ -84,12 +84,16 @@ namespace OSVersionExtension
                 return OperatingSystem.WindowsServer2008;
             else if (MajorVersion == 6 && MinorVersion == 0 && IsWorkstation)
                 return OperatingSystem.WindowsVista;
-            else if (MajorVersion == 5 && MinorVersion == 2 && ReadSystemMetrics(SystemMetric.SM_SERVERR2) != 0)
+            else if (MajorVersion == 5 &&
+                     MinorVersion == 2 &&
+                     IsServer &&
+                     ReadSystemMetrics(SystemMetric.SM_SERVERR2) != 0)
                 return OperatingSystem.WindowsServer2003R2;
-            else if (MajorVersion == 5
-                     && MinorVersion == 2
-                     && ReadSystemMetrics(SystemMetric.SM_SERVERR2) == 0
-                     && (_suiteMask & SuiteMask.VER_SUITE_WH_SERVER) != SuiteMask.VER_SUITE_WH_SERVER
+            else if (MajorVersion == 5 &&
+                     MinorVersion == 2 &&
+                     IsServer &&
+                     ReadSystemMetrics(SystemMetric.SM_SERVERR2) == 0 &&
+                     (_suiteMask & SuiteMask.VER_SUITE_WH_SERVER) != SuiteMask.VER_SUITE_WH_SERVER
                      )
                 return OperatingSystem.WindowsServer2003;
             else if (MajorVersion == 5 && MinorVersion == 2 && (_suiteMask & SuiteMask.VER_SUITE_WH_SERVER) == SuiteMask.VER_SUITE_WH_SERVER)
@@ -121,11 +125,36 @@ namespace OSVersionExtension
         }
 
         /// <summary>
+        /// Use custom Environment provider
+        /// </summary>
+        /// <param name="environmentProvider"></param>
+        /// <exception cref="ArgumentNullException"></exception>
+        public static void SetEnvironmentProvider(IEnvironment environmentProvider)
+        {
+            if (environmentProvider != null)
+            {
+                _environmentProvider = environmentProvider;
+                Initialize();
+            }
+            else
+                throw new ArgumentNullException();
+        }
+
+        /// <summary>
         /// Sets the Win32API Provider to default.
         /// </summary>
         public static void SetWin32ApiProviderDefault()
         {
             _win32ApiProvider = _win32ApiProviderDefault;            
+            Initialize();
+        }
+
+        /// <summary>
+        /// Sets the Environment provider to default.
+        /// </summary>
+        public static void SetEnvironmentProviderDefault()
+        {
+            _environmentProvider = _environmentProviderDefault;
             Initialize();
         }
 
