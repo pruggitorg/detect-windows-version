@@ -1,6 +1,7 @@
 ﻿using OSVersionExt;
 using OSVersionExt.Environment;
 using OSVersionExt.Win32API;
+using OSVersionExt.MajorVersion10;
 using System;
 using System.Runtime.InteropServices;
 using System.Security;
@@ -156,6 +157,22 @@ namespace OSVersionExtension
         {
             _environmentProvider = _environmentProviderDefault;
             Initialize();
+        }
+
+        /// <summary>
+        /// Returns additional properties for Windows systems having major version 10 or higher
+        /// </summary>
+        /// <returns></returns>
+        /// <exception cref="InvalidOperationException">Cannot be called on systems other than Windows 10</exception>
+        public static MajorVersion10Properties MajorVersion10Properties()
+        {
+            // TODO: check, if will work on Server 2019 and 2016
+            if (MajorVersion < 10)
+                throw new InvalidOperationException("Cannot be called on systems earlier than version 10.");
+
+            MajorVersion10Properties majorVersion10Properties = new MajorVersion10Properties();
+
+            return majorVersion10Properties;
         }
 
         private static void Initialize()

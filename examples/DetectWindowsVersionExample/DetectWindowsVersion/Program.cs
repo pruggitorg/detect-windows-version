@@ -23,6 +23,12 @@ namespace DetectWindowsVersion
             Console.WriteLine($"is server: {OSVersion.IsServer}");
             Console.WriteLine($"64-Bit OS: {OSVersion.Is64BitOperatingSystem}");
 
+            if (OSVersion.GetOSVersion().Version.Major >= 10)
+            {
+                Console.WriteLine($"Windows Release ID: {OSVersion.MajorVersion10Properties().ReleaseId}");
+                Console.WriteLine($"Windows Update Build Revision: {OSVersion.MajorVersion10Properties().UBR}");
+            }
+
             Console.ReadKey();
         }
     }
