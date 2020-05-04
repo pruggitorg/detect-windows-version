@@ -54,7 +54,7 @@
     <Compile Include="Win32API\IWin32API.cs" />
     <Compile Include="Win32API\Win32ApiEnums.cs" />
     <Compile Include="MajorVersion10\RegistryProviderDefault.cs" />
-    <Compile Include="MajorVersion10\Windows10Properties.cs" />
+    <Compile Include="MajorVersion10\MajorVersion10Properties.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
