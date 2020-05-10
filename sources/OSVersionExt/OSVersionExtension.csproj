@@ -45,6 +45,7 @@
   <ItemGroup>
     <Compile Include="Environment\EnvironmentProvider.cs" />
     <Compile Include="Environment\IEnvironment.cs" />
+    <Compile Include="Registry\IRegistry.cs" />
     <Compile Include="Win32API\SystemMetrics.cs" />
     <Compile Include="VersionInfo.cs" />
     <Compile Include="OSVersion.cs" />
@@ -52,6 +53,8 @@
     <Compile Include="Win32API\Win32ApiProvider.cs" />
     <Compile Include="Win32API\IWin32API.cs" />
     <Compile Include="Win32API\Win32ApiEnums.cs" />
+    <Compile Include="MajorVersion10\RegistryProviderDefault.cs" />
+    <Compile Include="MajorVersion10\MajorVersion10Properties.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
