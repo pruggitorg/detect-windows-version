@@ -1,10 +1,37 @@
 # Properly detect Windows version in C# .NET – even Windows 10
 Shows various ways to determine the Windows version including calling RtlGetVersion in ntdll.dll. It is available starting with Windows 2000 and also works on Windows 10/Server 2019/Server 2016 right away.
 
+
+
 <img src="images/windows10-version-demo.png">
 
-Target framework: .NET Framework 4 (as one of the checks calls Environment.Is64BitOperatingSystem)
 
+# List of detected operating systems
+
+The class can return the OS as an enum. 
+
+<pre><code class='language-cs'>
+    public enum OperatingSystem
+    {
+        Unknown,
+        Windows2000,
+        WindowsXP,
+        WindowsXPProx64,
+        WindowsHomeServer,
+        WindowsServer2003,
+        WindowsServer2003R2, 
+        WindowsVista,
+        WindowsServer2008,
+        WindowsServer2008R2,
+        Windows7,
+        WindowsServer2012,
+        Windows8,
+        Windows81,
+        WindowsServer2012R2,    
+        WindowsServer20162019,  
+        Windows10               
+    }
+</code></pre>
 
 | Operating system  | tested | remarks |
 | ------------- | ------------- | -------------  |
@@ -25,6 +52,9 @@ Target framework: .NET Framework 4 (as one of the checks calls Environment.Is64B
 | Windows XP  | -  |   |
 | Windows 2000  | -  |   |
 
+
+# Target framework
+NET Framework 4 (as one of the checks calls Environment.Is64BitOperatingSystem). Yet, you can inject your own environment provider, which runs on lower versions.
 
 # Technical information
 Please refer to https://www.prugg.at/2019/09/09/properly-detect-windows-version-in-c-net-even-windows-10/
