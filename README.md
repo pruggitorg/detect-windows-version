@@ -39,9 +39,9 @@ The class can return the OS as an enum.
 | Windows Server 2019  |yes  |   |
 | Windows Server 2016  | -  |   |
 | Windows Server 2012 R2  | yes  |   |
-| Windows 8.1  | -  |   |
+| Windows 8.1  | yes  | x64  |
 | Windows 8  | -  |   |
-| Windows 7  | -  |   |
+| Windows 7  | yes  | x86  |
 | Windows Server 2008 R2  | -  |   |
 | Windows Server 2008  | -  |   |
 | Windows Vista  | -  |   |
