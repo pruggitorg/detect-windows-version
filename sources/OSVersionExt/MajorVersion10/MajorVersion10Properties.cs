@@ -24,7 +24,7 @@ namespace OSVersionExt.MajorVersion10
         private string _UBR = UBRdefault;
 
         /// <summary>
-        /// Returns the Windows release ID.
+        /// Returns the Windows release ID (e.g. 1909, 2004)
         /// </summary>
         /// <remarks>returns the release id or null, if detection has failed.</remarks>
         public string ReleaseId { get => _releaseId; }
@@ -42,13 +42,10 @@ namespace OSVersionExt.MajorVersion10
         /// <exception cref="ArgumentNullException"></exception>
         public MajorVersion10Properties(IRegistry registryProvider)
         {
-            if (registryProvider != null)
-            {
-                this._registryProvider = registryProvider;
-                GetAllProperties();
-            }
-            else
-                throw new ArgumentNullException();
+            _ = registryProvider ?? throw new ArgumentNullException();
+
+            this._registryProvider = registryProvider;
+            GetAllProperties();
         }
 
         public MajorVersion10Properties()
@@ -78,7 +75,7 @@ namespace OSVersionExt.MajorVersion10
         /// </summary>
         /// <returns></returns>
         /// <remarks>E.g, it returns 778 for Microsoft Windows [Version 10.0.18363.778] </remarks>
-        private string  GetUBR()
+        private string GetUBR()
         {
             return this._registryProvider.GetValue(registryCurrentVersionKeyName, UBRkeyName, UBRdefault)?.ToString();
         }

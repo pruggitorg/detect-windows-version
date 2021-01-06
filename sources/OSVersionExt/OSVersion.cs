@@ -45,7 +45,7 @@ namespace OSVersionExtension
 
             _win32ApiProvider = _win32ApiProviderDefault;
             _environmentProvider = _environmentProviderDefault;
-            Initialize();            
+            Initialize();
         }
 
         /// <summary>
@@ -116,13 +116,10 @@ namespace OSVersionExtension
         /// <exception cref="ArgumentNullException"></exception>
         public static void SetWin32ApiProvider(IWin32API win32ApiProvider)
         {
-            if (win32ApiProvider != null)
-            {
-                _win32ApiProvider = win32ApiProvider;
-                Initialize();
-            }
-            else
-                throw new ArgumentNullException();
+            _ = win32ApiProvider ?? throw new ArgumentNullException();
+
+            _win32ApiProvider = win32ApiProvider;
+            Initialize();
         }
 
         /// <summary>
@@ -132,13 +129,10 @@ namespace OSVersionExtension
         /// <exception cref="ArgumentNullException"></exception>
         public static void SetEnvironmentProvider(IEnvironment environmentProvider)
         {
-            if (environmentProvider != null)
-            {
-                _environmentProvider = environmentProvider;
-                Initialize();
-            }
-            else
-                throw new ArgumentNullException();
+            _ = environmentProvider ?? throw new ArgumentNullException();
+
+            _environmentProvider = environmentProvider;
+            Initialize();
         }
 
         /// <summary>
@@ -146,7 +140,7 @@ namespace OSVersionExtension
         /// </summary>
         public static void SetWin32ApiProviderDefault()
         {
-            _win32ApiProvider = _win32ApiProviderDefault;            
+            _win32ApiProvider = _win32ApiProviderDefault;
             Initialize();
         }
 
@@ -175,6 +169,9 @@ namespace OSVersionExtension
             return majorVersion10Properties;
         }
 
+        /// <summary>
+        /// Gets the initial OS version information
+        /// </summary>
         private static void Initialize()
         {
             DetectWindowsVersion(_win32ApiProvider);

@@ -56,6 +56,7 @@
     <Compile Include="OSDetectionRules.cs" />
     <Compile Include="OSDetectionTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="OSVersionTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
