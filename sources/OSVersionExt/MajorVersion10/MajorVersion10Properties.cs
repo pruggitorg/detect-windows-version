@@ -6,25 +6,49 @@ using System.Text;
 
 namespace OSVersionExt.MajorVersion10
 {
+    public readonly struct RegistryEntry
+    {
+        /// <summary>
+        /// The full registry path of the key, beginning with a valid registry root, such as "HKEY_CURRENT_USER".
+        /// </summary>
+        public string FullPathToKey { get; }
+
+        /// <summary>
+        /// The name of the name/value pair.
+        /// </summary>
+        public string ValueName { get; }
+
+        /// <summary>
+        /// The value to return if ValueName does not exist.
+        /// </summary>
+        public string DefaultValueNotFound  {get;}
+
+        public RegistryEntry(string fullPathToKey, string valueName, string defaultValue)
+        {
+            FullPathToKey = fullPathToKey;
+            ValueName = valueName;
+            DefaultValueNotFound = defaultValue;
+        }
+    }
+
     /// <summary>
     /// Get the release id and UBR (Update Build Revision) on Windows system having major version 10.
     /// </summary>
     public class MajorVersion10Properties
     {
-        private const string registryCurrentVersionKeyName = @"HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion";
-        private const string releaseIdKeyName = "ReleaseId";
-        private const string releaseIdDefault = null;
-        private const string UBRkeyName = "UBR";
-        private const string UBRdefault = null;
+        private const string FullPathToCurrentVersion = @"HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion";
+        private readonly RegistryEntry _releaseIdRegistry = new RegistryEntry(FullPathToCurrentVersion, "ReleaseId", null);
+        private readonly RegistryEntry _ubrRegistry = new RegistryEntry(FullPathToCurrentVersion, "UBR", null);
+        private readonly RegistryEntry _displayVersionRegistry = new RegistryEntry(FullPathToCurrentVersion, "DisplayVersion", null);
 
         private IRegistry _registryProvider;
 
-
-        private string _releaseId = releaseIdDefault;
-        private string _UBR = UBRdefault;
+        private string _releaseId = null;
+        private string _UBR = null;
+        private string _displayVersion = null;
 
         /// <summary>
-        /// Returns the Windows release ID (e.g. 1909, 2004)
+        /// Returns the Windows numeric release ID (e.g. 1909, 2004, 2009). For versions like 20H2 use DisplayVersion.
         /// </summary>
         /// <remarks>returns the release id or null, if detection has failed.</remarks>
         public string ReleaseId { get => _releaseId; }
@@ -36,6 +60,11 @@ namespace OSVersionExt.MajorVersion10
         public string UBR { get => _UBR; }
 
         /// <summary>
+        /// Gets the Display Version such as 1909, 2004, 20H2.
+        /// </summary>
+        public string DisplayVersion { get => _displayVersion; }
+
+        /// <summary>
         /// Create instance with custom registry provider.
         /// </summary>
         /// <param name="registryProvider"></param>
@@ -44,20 +73,21 @@ namespace OSVersionExt.MajorVersion10
         {
             _ = registryProvider ?? throw new ArgumentNullException();
 
-            this._registryProvider = registryProvider;
+            _registryProvider = registryProvider;
             GetAllProperties();
         }
 
         public MajorVersion10Properties()
         {
-            this._registryProvider = new RegistryProviderDefault();
+            _registryProvider = new RegistryProviderDefault();
             GetAllProperties();
         }
 
         private void GetAllProperties()
         {
-            this._releaseId = this.GetReleaseId();
-            this._UBR = this.GetUBR();
+            _releaseId = GetReleaseId();
+            _UBR = GetUBR();
+            _displayVersion = GetDisplayVersion();
         }
 
         /// <summary>        
@@ -66,8 +96,8 @@ namespace OSVersionExt.MajorVersion10
         /// <returns>Returns the release id or null, if value is not available.</returns>
         /// <remarks>Feature updates for Windows 10 are released twice a year, around March and September, via the Semi-Annual Channel.</remarks>
         private string GetReleaseId()
-        {
-            return this._registryProvider.GetValue(registryCurrentVersionKeyName, releaseIdKeyName, releaseIdDefault)?.ToString();
+        { 
+            return _registryProvider.GetValue(_releaseIdRegistry.FullPathToKey, _releaseIdRegistry.ValueName, _releaseIdRegistry.DefaultValueNotFound)?.ToString();
         }
 
         /// <summary>
@@ -77,7 +107,19 @@ namespace OSVersionExt.MajorVersion10
         /// <remarks>E.g, it returns 778 for Microsoft Windows [Version 10.0.18363.778] </remarks>
         private string GetUBR()
         {
-            return this._registryProvider.GetValue(registryCurrentVersionKeyName, UBRkeyName, UBRdefault)?.ToString();
+            return _registryProvider.GetValue(_ubrRegistry.FullPathToKey, _ubrRegistry.ValueName, _ubrRegistry.DefaultValueNotFound)?.ToString();
+        }
+
+
+        /// <summary>
+        /// Returns the DisplayVersion such as 20H2 (for ReleaseId 2009). If value is not found, it will return the ReleaseId.
+        /// </summary>
+        /// <returns></returns>
+        private string GetDisplayVersion()
+        {
+           string displayVersion = _registryProvider.GetValue(_displayVersionRegistry.FullPathToKey, _displayVersionRegistry.ValueName, _displayVersionRegistry.DefaultValueNotFound)?.ToString();
+
+            return displayVersion ?? GetReleaseId();
         }
     }
 }
