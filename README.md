@@ -37,7 +37,7 @@ The class can return the OS as an enum.
 | ------------- | ------------- | -------------  |
 | Windows 10  | yes  | 2009/20H2 (build 19042), 2004 (build 19041), 1909 (build 18363), 1903 (build 18362), 1809 (build 17763) - all x64  |
 | Windows Server 2019  |yes  |   |
-| Windows Server 2016  | -  |   |
+| Windows Server 2016  | yes  |   |
 | Windows Server 2012 R2  | yes  |   |
 | Windows 8.1  | yes  | x64  |
 | Windows 8  | -  |   |
