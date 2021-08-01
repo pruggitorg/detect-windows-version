@@ -9,7 +9,7 @@ using System.Security;
 namespace OSVersionExtension
 {
     /// <summary>
-    /// Detects Windows version.
+    /// Detects Windows version starting with Windows 2000 and also works on Windows 10/Server 2019/Server 2016 right away.
     /// </summary>
     /// <remarks>
     /// References:
@@ -20,14 +20,34 @@ namespace OSVersionExtension
     [SecurityCritical]
     public static class OSVersion
     {
-        // default providers when class is instantiated or setted to default values
+        /// <summary>
+        /// Default provider for the Win32 API.
+        /// </summary>
         private static readonly IWin32API _win32ApiProviderDefault;
+
+        /// <summary>
+        /// Default provider for the Windows environment.
+        /// </summary>
         private static readonly IEnvironment _environmentProviderDefault;
 
+        /// <summary>
+        /// Contains information, whether the Windows is a server, workstation or domain controller.
+        /// </summary>
         private static ProductType _productType;
+
+        /// <summary>
+        /// Holds specific information for certain Windows variants (e.g. Small Business, Datacenter,...)
+        /// </summary>
         private static SuiteMask _suiteMask;
 
+        /// <summary>
+        /// Provider for working with the Win32 API.
+        /// </summary>
         private static IWin32API _win32ApiProvider;
+
+        /// <summary>
+        /// Provider for getting information about the Windows environment.
+        /// </summary>
         private static IEnvironment _environmentProvider;
 
         public static int MajorVersion { get; private set; }
@@ -45,14 +65,14 @@ namespace OSVersionExtension
 
             _win32ApiProvider = _win32ApiProviderDefault;
             _environmentProvider = _environmentProviderDefault;
-            Initialize();
+            RetrieveVersionAndStore();
         }
 
         /// <summary>
-        /// Detects Windows version starting with Windows 2000 and also works on Windows 10/Server 2019/Server 2016 right away.
+        /// Gets the version information and build number.
         /// </summary>
-        /// <remarks>Calls the Windows Kernel function RtlGetVersion routine. </remarks>
-        /// <returns></returns>        
+        /// <remarks></remarks>
+        /// <returns>Returns <see cref="VersionInfo"/>, e.g 10.0.19043</returns>        
         public static VersionInfo GetOSVersion()
         {
             return new VersionInfo(MajorVersion, MinorVersion, BuildNumber);
@@ -119,7 +139,7 @@ namespace OSVersionExtension
             _ = win32ApiProvider ?? throw new ArgumentNullException();
 
             _win32ApiProvider = win32ApiProvider;
-            Initialize();
+            RetrieveVersionAndStore();
         }
 
         /// <summary>
@@ -132,7 +152,7 @@ namespace OSVersionExtension
             _ = environmentProvider ?? throw new ArgumentNullException();
 
             _environmentProvider = environmentProvider;
-            Initialize();
+            RetrieveVersionAndStore();
         }
 
         /// <summary>
@@ -141,7 +161,7 @@ namespace OSVersionExtension
         public static void SetWin32ApiProviderDefault()
         {
             _win32ApiProvider = _win32ApiProviderDefault;
-            Initialize();
+            RetrieveVersionAndStore();
         }
 
         /// <summary>
@@ -150,7 +170,7 @@ namespace OSVersionExtension
         public static void SetEnvironmentProviderDefault()
         {
             _environmentProvider = _environmentProviderDefault;
-            Initialize();
+            RetrieveVersionAndStore();
         }
 
         /// <summary>
@@ -170,9 +190,9 @@ namespace OSVersionExtension
         }
 
         /// <summary>
-        /// Gets the initial OS version information
+        /// Gets the OS version information and updates the properties for this class.
         /// </summary>
-        private static void Initialize()
+        private static void RetrieveVersionAndStore()
         {
             DetectWindowsVersion(_win32ApiProvider);
         }
@@ -233,7 +253,7 @@ namespace OSVersionExtension
         WindowsXPProx64,
         WindowsHomeServer,
         WindowsServer2003,
-        WindowsServer2003R2,    // tested
+        WindowsServer2003R2,
         WindowsVista,
         WindowsServer2008,
         WindowsServer2008R2,
@@ -241,9 +261,9 @@ namespace OSVersionExtension
         WindowsServer2012,
         Windows8,
         Windows81,
-        WindowsServer2012R2,    // tested
-        WindowsServer20162019,  // tested Server 2019
-        Windows10               // tested
+        WindowsServer2012R2,
+        WindowsServer20162019,
+        Windows10
     }
 
 }
