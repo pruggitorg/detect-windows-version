@@ -31,16 +31,6 @@ namespace OSVersionExtension
         private static readonly IEnvironment _environmentProviderDefault;
 
         /// <summary>
-        /// Contains information, whether the Windows is a server, workstation or domain controller.
-        /// </summary>
-        private static ProductType _productType;
-
-        /// <summary>
-        /// Holds specific information for certain Windows variants (e.g. Small Business, Datacenter,...)
-        /// </summary>
-        private static SuiteMask _suiteMask;
-
-        /// <summary>
         /// Provider for working with the Win32 API.
         /// </summary>
         private static IWin32API _win32ApiProvider;
@@ -50,9 +40,9 @@ namespace OSVersionExtension
         /// </summary>
         private static IEnvironment _environmentProvider;
 
-        public static int MajorVersion { get; private set; }
-        public static int MinorVersion { get; private set; }
-        public static int BuildNumber { get; private set; }
+        public static int MajorVersion { get => DetectWindowsVersion(_win32ApiProvider).MajorVersion; }
+        public static int MinorVersion { get => DetectWindowsVersion(_win32ApiProvider).MinorVersion; }
+        public static int BuildNumber { get => DetectWindowsVersion(_win32ApiProvider).BuildNumber; }
         public static bool IsWorkstation { get => GetIfWorkStation(); }
         public static bool IsServer { get => GetIfServer(); }
         public static bool Is64BitOperatingSystem { get => GetIf64BitOperatingSystem(); }
@@ -64,8 +54,7 @@ namespace OSVersionExtension
             _environmentProviderDefault = new EnvironmentProvider();
 
             _win32ApiProvider = _win32ApiProviderDefault;
-            _environmentProvider = _environmentProviderDefault;
-            RetrieveVersionAndStore();
+            _environmentProvider = _environmentProviderDefault;            
         }
 
         /// <summary>
@@ -85,6 +74,8 @@ namespace OSVersionExtension
         /// <remarks>detection based on https://docs.microsoft.com/de-de/windows-hardware/drivers/ddi/wdm/ns-wdm-_osversioninfoexw#remarks </remarks>
         public static OperatingSystem GetOperatingSystem()
         {
+            SuiteMask suiteMask = DetectWindowsVersion(_win32ApiProvider).SuiteMask;
+
             if (MajorVersion == 10 && MinorVersion == 0 && IsWorkstation)
                 return OperatingSystem.Windows10;
             else if (MajorVersion == 10 && MinorVersion == 0 && IsServer)
@@ -114,10 +105,10 @@ namespace OSVersionExtension
                      MinorVersion == 2 &&
                      IsServer &&
                      ReadSystemMetrics(SystemMetric.SM_SERVERR2) == 0 &&
-                     (_suiteMask & SuiteMask.VER_SUITE_WH_SERVER) != SuiteMask.VER_SUITE_WH_SERVER
+                     (suiteMask & SuiteMask.VER_SUITE_WH_SERVER) != SuiteMask.VER_SUITE_WH_SERVER
                      )
                 return OperatingSystem.WindowsServer2003;
-            else if (MajorVersion == 5 && MinorVersion == 2 && (_suiteMask & SuiteMask.VER_SUITE_WH_SERVER) == SuiteMask.VER_SUITE_WH_SERVER)
+            else if (MajorVersion == 5 && MinorVersion == 2 && (suiteMask & SuiteMask.VER_SUITE_WH_SERVER) == SuiteMask.VER_SUITE_WH_SERVER)
                 return OperatingSystem.WindowsHomeServer;
             else if (MajorVersion == 5 && MinorVersion == 2 && IsWorkstation && Is64BitOperatingSystem)
                 return OperatingSystem.WindowsXPProx64;
@@ -138,8 +129,7 @@ namespace OSVersionExtension
         {
             _ = win32ApiProvider ?? throw new ArgumentNullException();
 
-            _win32ApiProvider = win32ApiProvider;
-            RetrieveVersionAndStore();
+            _win32ApiProvider = win32ApiProvider;            
         }
 
         /// <summary>
@@ -151,8 +141,7 @@ namespace OSVersionExtension
         {
             _ = environmentProvider ?? throw new ArgumentNullException();
 
-            _environmentProvider = environmentProvider;
-            RetrieveVersionAndStore();
+            _environmentProvider = environmentProvider;            
         }
 
         /// <summary>
@@ -161,7 +150,6 @@ namespace OSVersionExtension
         public static void SetWin32ApiProviderDefault()
         {
             _win32ApiProvider = _win32ApiProviderDefault;
-            RetrieveVersionAndStore();
         }
 
         /// <summary>
@@ -169,8 +157,7 @@ namespace OSVersionExtension
         /// </summary>
         public static void SetEnvironmentProviderDefault()
         {
-            _environmentProvider = _environmentProviderDefault;
-            RetrieveVersionAndStore();
+            _environmentProvider = _environmentProviderDefault;            
         }
 
         /// <summary>
@@ -179,8 +166,7 @@ namespace OSVersionExtension
         /// <returns></returns>
         /// <exception cref="InvalidOperationException">Cannot be called on systems other than Windows 10</exception>
         public static MajorVersion10Properties MajorVersion10Properties()
-        {
-            // TODO: check, if will work on Server 2019 and 2016
+        {            
             if (MajorVersion < 10)
                 throw new InvalidOperationException("Cannot be called on systems earlier than version 10.");
 
@@ -189,40 +175,29 @@ namespace OSVersionExtension
             return majorVersion10Properties;
         }
 
-        /// <summary>
-        /// Gets the OS version information and updates the properties for this class.
-        /// </summary>
-        private static void RetrieveVersionAndStore()
-        {
-            DetectWindowsVersion(_win32ApiProvider);
-        }
-
-        private static void DetectWindowsVersion(IWin32API win32ApiProvider)
+        private static OSVERSIONINFOEX DetectWindowsVersion(IWin32API win32ApiProvider)
         {
             var osVersionInfo = new OSVERSIONINFOEX { OSVersionInfoSize = Marshal.SizeOf(typeof(OSVERSIONINFOEX)) };
 
             if (win32ApiProvider.RtlGetVersion(ref osVersionInfo) != NTSTATUS.STATUS_SUCCESS)
-            {
-                // TODO: Error handling, call GetVersionEx, etc.
-            }
+                throw new InvalidOperationException($"Failed to call internal {nameof(win32ApiProvider.RtlGetVersion)}.");
 
-            MajorVersion = osVersionInfo.MajorVersion;
-            MinorVersion = osVersionInfo.MinorVersion;
-            BuildNumber = osVersionInfo.BuildNumber;
-
-            _productType = osVersionInfo.ProductType;
-            _suiteMask = osVersionInfo.SuiteMask;
+            return osVersionInfo;
         }
 
         private static bool GetIfServer()
         {
-            return _productType == ProductType.DomainController
-                   || _productType == ProductType.Server;
+            ProductType productType = DetectWindowsVersion(_win32ApiProvider).ProductType;
+
+            return productType == ProductType.DomainController
+                   || productType == ProductType.Server;
         }
 
         private static bool GetIfWorkStation()
         {
-            return _productType == ProductType.Workstation;
+            ProductType productType = DetectWindowsVersion(_win32ApiProvider).ProductType;
+
+            return productType == ProductType.Workstation;
         }
 
         private static bool GetIf64BitOperatingSystem()

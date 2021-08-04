@@ -6,6 +6,9 @@ using System.Text;
 
 namespace OSVersionExt.Win32API
 {
+    /// <summary>
+    /// Holds information, whether the Windows is a server, workstation or domain controller.
+    /// </summary>
     public enum ProductType : byte
     {
         /// <summary>
@@ -27,6 +30,9 @@ namespace OSVersionExt.Win32API
     }
 
 
+    /// <summary>
+    /// Holds specific information for certain Windows variants (e.g. Small Business, Datacenter,...)
+    /// </summary>
     [Flags]
     public enum SuiteMask : ushort
     {
@@ -97,6 +103,16 @@ namespace OSVersionExt.Win32API
         STATUS_SUCCESS = 0x00000000
     }
 
+    /// <summary>
+    /// Contains operating system version information. The information includes major and 
+    /// minor version numbers, a build number, a platform identifier, and information about 
+    /// product suites and the latest Service Pack installed on the system.
+    /// </summary>
+    /// <example>
+    /// <code>
+    /// var osVersionInfo = new OSVERSIONINFOEX { OSVersionInfoSize = Marshal.SizeOf(typeof(OSVERSIONINFOEX)) };
+    /// </code>
+    /// </example>
     [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Unicode)]
     public struct OSVERSIONINFOEX
     {
