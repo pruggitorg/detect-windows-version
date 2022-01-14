@@ -132,7 +132,7 @@ namespace OSVersionExtensionTests
 
 
         [TestMethod]
-        public void GivenNonExistingValueNameExpectZeroValues()
+        public void GivenNonExistingValueNameExpectNullValues()
         {
             // arrange
             string wrongValueName = "ThisIsWrongForSureIndeed!";

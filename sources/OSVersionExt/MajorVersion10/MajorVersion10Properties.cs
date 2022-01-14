@@ -51,6 +51,7 @@ namespace OSVersionExt.MajorVersion10
         /// Returns the Windows numeric release ID (e.g. 1909, 2004, 2009). For versions like 20H2 use DisplayVersion.
         /// </summary>
         /// <remarks>returns the release id or null, if detection has failed.</remarks>
+        [Obsolete("Works until Windows 10 version 2009/20H2 (build 19042) only. Use DisplayVersion instead.")]
         public string ReleaseId { get => _releaseId; }
 
         /// <summary>
@@ -91,10 +92,11 @@ namespace OSVersionExt.MajorVersion10
         }
 
         /// <summary>        
-        /// The version number representing feature updates, is referred as the release id, such as 1903, 1909.
+        /// The version number representing feature updates, is referred as the release id, such as 1903, 1909. 
+        /// Works until Windows 10 version 2009/20H2 (build 19042) only.
         /// </summary>
         /// <returns>Returns the release id or null, if value is not available.</returns>
-        /// <remarks>Feature updates for Windows 10 are released twice a year, around March and September, via the Semi-Annual Channel.</remarks>
+        /// <remarks>Feature updates for Windows 10 are released twice a year, around March and September, via the Semi-Annual Channel.</remarks>        
         private string GetReleaseId()
         { 
             return _registryProvider.GetValue(_releaseIdRegistry.FullPathToKey, _releaseIdRegistry.ValueName, _releaseIdRegistry.DefaultValueNotFound)?.ToString();
