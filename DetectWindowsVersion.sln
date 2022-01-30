@@ -3,15 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29418.71
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DetectWindowsVersionDotNET", "DetectWindowsVersionExample\DetectWindowsVersionDotNET.csproj", "{BF3D954B-33C2-4A84-B4D6-2842A00F92F4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DetectWindowsVersion", "samples\DetectWindowsVersion\DetectWindowsVersion.csproj", "{670CE219-9503-41E0-8E51-22058A9C61A1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DetectWindowsVersionDotNETappManifest", "DetectWindowsVersionDotNETappManifest\DetectWindowsVersionDotNETappManifest.csproj", "{2FD921D5-BE2B-4B91-BC88-AE2C4D1BE08B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DetectWindowsVersionDotNETappManifest", "samples\DetectWindowsVersionDotNETappManifest\DetectWindowsVersionDotNETappManifest.csproj", "{2FD921D5-BE2B-4B91-BC88-AE2C4D1BE08B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OSVersionExtension", "..\..\sources\OSVersionExt\OSVersionExtension.csproj", "{01DF3D9F-DFB1-4BD5-B0BF-B9CBBE3AE19F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DetectWindowsVersionDotNET", "samples\DetectWindowsVersionExample\DetectWindowsVersionDotNET.csproj", "{BF3D954B-33C2-4A84-B4D6-2842A00F92F4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DetectWindowsVersion", "DetectWindowsVersion\DetectWindowsVersion.csproj", "{670CE219-9503-41E0-8E51-22058A9C61A1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OSVersionExtension", "src\OSVersionExt\OSVersionExtension.csproj", "{01DF3D9F-DFB1-4BD5-B0BF-B9CBBE3AE19F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OSVersionExtensionTests", "..\..\sources\OSVersionExtensionTests\OSVersionExtensionTests\OSVersionExtensionTests.csproj", "{5E9D9588-51D2-4658-8CE5-C061F36E9499}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OSVersionExtensionTests", "tests\OSVersionExtensionTests\OSVersionExtensionTests.csproj", "{5E9D9588-51D2-4658-8CE5-C061F36E9499}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -19,22 +19,22 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{BF3D954B-33C2-4A84-B4D6-2842A00F92F4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{BF3D954B-33C2-4A84-B4D6-2842A00F92F4}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{BF3D954B-33C2-4A84-B4D6-2842A00F92F4}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{BF3D954B-33C2-4A84-B4D6-2842A00F92F4}.Release|Any CPU.Build.0 = Release|Any CPU
-		{2FD921D5-BE2B-4B91-BC88-AE2C4D1BE08B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2FD921D5-BE2B-4B91-BC88-AE2C4D1BE08B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2FD921D5-BE2B-4B91-BC88-AE2C4D1BE08B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2FD921D5-BE2B-4B91-BC88-AE2C4D1BE08B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{01DF3D9F-DFB1-4BD5-B0BF-B9CBBE3AE19F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{01DF3D9F-DFB1-4BD5-B0BF-B9CBBE3AE19F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{01DF3D9F-DFB1-4BD5-B0BF-B9CBBE3AE19F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{01DF3D9F-DFB1-4BD5-B0BF-B9CBBE3AE19F}.Release|Any CPU.Build.0 = Release|Any CPU
 		{670CE219-9503-41E0-8E51-22058A9C61A1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{670CE219-9503-41E0-8E51-22058A9C61A1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{670CE219-9503-41E0-8E51-22058A9C61A1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{670CE219-9503-41E0-8E51-22058A9C61A1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2FD921D5-BE2B-4B91-BC88-AE2C4D1BE08B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2FD921D5-BE2B-4B91-BC88-AE2C4D1BE08B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2FD921D5-BE2B-4B91-BC88-AE2C4D1BE08B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2FD921D5-BE2B-4B91-BC88-AE2C4D1BE08B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BF3D954B-33C2-4A84-B4D6-2842A00F92F4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BF3D954B-33C2-4A84-B4D6-2842A00F92F4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BF3D954B-33C2-4A84-B4D6-2842A00F92F4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BF3D954B-33C2-4A84-B4D6-2842A00F92F4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{01DF3D9F-DFB1-4BD5-B0BF-B9CBBE3AE19F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{01DF3D9F-DFB1-4BD5-B0BF-B9CBBE3AE19F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{01DF3D9F-DFB1-4BD5-B0BF-B9CBBE3AE19F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{01DF3D9F-DFB1-4BD5-B0BF-B9CBBE3AE19F}.Release|Any CPU.Build.0 = Release|Any CPU
 		{5E9D9588-51D2-4658-8CE5-C061F36E9499}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{5E9D9588-51D2-4658-8CE5-C061F36E9499}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5E9D9588-51D2-4658-8CE5-C061F36E9499}.Release|Any CPU.ActiveCfg = Release|Any CPU
