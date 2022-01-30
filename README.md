@@ -6,7 +6,7 @@ Also available on Nuget: https://www.nuget.org/packages/OSVersionExt/
 <img src="images/windows10-version-demo.png">
 
 
-<pre><code class='language-cs'>
+```csharp
 Console.WriteLine($"Windows version: " +
     $"{OSVersion.GetOSVersion().Version.Major}." +
     $"{OSVersion.GetOSVersion().Version.Minor}." +
@@ -24,7 +24,7 @@ if (OSVersion.GetOSVersion().Version.Major >= 10)
     Console.WriteLine($"Windows Display Version: {OSVersion.MajorVersion10Properties().DisplayVersion ?? "(Unable to detect)"}");
     Console.WriteLine($"Windows Update Build Revision: {OSVersion.MajorVersion10Properties().UBR ?? "(Unable to detect)"}");
 }
-</code></pre>
+```
 
 
 
@@ -32,7 +32,7 @@ if (OSVersion.GetOSVersion().Version.Major >= 10)
 
 The class can return the OS as an enum. 
 
-<pre><code class='language-cs'>
+```csharp
     public enum OperatingSystem
     {
         Unknown,
@@ -53,7 +53,7 @@ The class can return the OS as an enum.
         WindowsServer20162019,  
         Windows10               
     }
-</code></pre>
+```
 
 | Operating system  | tested | remarks |
 | ------------- | ------------- | -------------  |
