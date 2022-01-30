@@ -51,7 +51,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\sources\OSVersionExt\OSVersionExtension.csproj">
+    <ProjectReference Include="..\..\src\OSVersionExt\OSVersionExtension.csproj">
       <Project>{01df3d9f-dfb1-4bd5-b0bf-b9cbbe3ae19f}</Project>
       <Name>OSVersionExtension</Name>
     </ProjectReference>
