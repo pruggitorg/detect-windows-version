@@ -1,9 +1,31 @@
 # Properly detect Windows version in C# .NET – even Windows 10
-Shows various ways to determine the Windows version including calling RtlGetVersion in ntdll.dll. It is available starting with Windows 2000 and also works on Windows 10/Server 2019/Server 2016 right away.
+Allows you to determine the correct Windows version, since System.Environment.OSVersion.Version in .NET Framework and .NET Core until version 4.8 respectively 3.1 returns wrong results on Windows 10. It works starting with Windows 2000 and also on Windows 10/Server 2019/Server 2016 right away.
 
-
+Also available on Nuget: https://www.nuget.org/packages/OSVersionExt/
 
 <img src="images/windows10-version-demo.png">
+
+
+<pre><code class='language-cs'>
+Console.WriteLine($"Windows version: " +
+    $"{OSVersion.GetOSVersion().Version.Major}." +
+    $"{OSVersion.GetOSVersion().Version.Minor}." +
+    $"{OSVersion.GetOSVersion().Version.Build}" +
+    $"");
+
+Console.WriteLine($"OS type: {OSVersion.GetOperatingSystem()}");
+Console.WriteLine($"is workstation: {OSVersion.IsWorkstation}");
+Console.WriteLine($"is server: {OSVersion.IsServer}");
+Console.WriteLine($"64-Bit OS: {OSVersion.Is64BitOperatingSystem}");
+
+if (OSVersion.GetOSVersion().Version.Major >= 10)
+{
+    Console.WriteLine($"Windows Release ID: {OSVersion.MajorVersion10Properties().ReleaseId ?? "(Unable to detect)"}");
+    Console.WriteLine($"Windows Display Version: {OSVersion.MajorVersion10Properties().DisplayVersion ?? "(Unable to detect)"}");
+    Console.WriteLine($"Windows Update Build Revision: {OSVersion.MajorVersion10Properties().UBR ?? "(Unable to detect)"}");
+}
+</code></pre>
+
 
 
 # List of detected operating systems
