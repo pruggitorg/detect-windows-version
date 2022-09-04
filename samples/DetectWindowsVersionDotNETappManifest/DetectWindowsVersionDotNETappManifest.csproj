@@ -8,7 +8,7 @@
     <OutputType>Exe</OutputType>
     <RootNamespace>DetectWindowsVersionDotNETappManifest</RootNamespace>
     <AssemblyName>DetectWindowsVersionDotNETappManifest</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
     <TargetFrameworkProfile />
