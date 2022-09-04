@@ -76,7 +76,7 @@ The class can return the OS as an enum.
 
 
 # Target framework
-NET Framework 4 (as one of the checks calls Environment.Is64BitOperatingSystem). Yet, you can inject your own environment provider, which runs on lower versions.
+NET Framework 4.6.2 (as one of the checks calls Environment.Is64BitOperatingSystem). Yet, you can inject your own environment provider, which runs on lower versions.
 
 # Technical information
 Please refer to https://www.prugg.at/2019/09/09/properly-detect-windows-version-in-c-net-even-windows-10/
