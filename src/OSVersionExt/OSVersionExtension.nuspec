@@ -10,7 +10,7 @@
     <!-- <icon>icon.png</icon> -->
     <projectUrl>https://github.com/pruggitorg/detect-windows-version</projectUrl>
     <description>$description$</description>
-    <releaseNotes>Initial release</releaseNotes>
+    <releaseNotes>Updated project to .NET Framework 4.6.2</releaseNotes>
     <copyright>$copyright$</copyright>
     <tags>windows version</tags>   
   </metadata>
