@@ -129,7 +129,7 @@ namespace OSVersionExtension
         {
             _ = win32ApiProvider ?? throw new ArgumentNullException();
 
-            _win32ApiProvider = win32ApiProvider;            
+            _win32ApiProvider = win32ApiProvider;
         }
 
         /// <summary>
@@ -219,7 +219,8 @@ namespace OSVersionExtension
         }
 
     }
-
+    
+    [Obsolete("This enumeration is deprecated an will be removed in future versions. Please use WindowsPlatform instead.", false)]
     public enum OperatingSystem
     {
         Unknown,
@@ -241,4 +242,43 @@ namespace OSVersionExtension
         Windows10
     }
 
+    /// <summary>
+    /// Represents a Windows platform version information based on the official method recommended by Microsoft. 
+    /// </summary>
+    /// <remarks>
+    /// <br>
+    /// For example, there is no distinction between Windows 11 and Windows 10, since both products have the same version number 10.0.
+    /// </br>
+    /// <br>
+    /// <seealso href="https://learn.microsoft.com/de-de/windows/win32/api/winnt/ns-winnt-osversioninfoexa"/>
+    /// </br>
+    /// </remarks>
+    public enum WindowsPlatform
+    {
+        Unknown = 0,
+        Windows2000 = 1,
+        WindowsXP = 2,
+        WindowsXPProx64 = 3,
+        WindowsHomeServer = 4,
+        WindowsServer2003 = 5,
+        WindowsServer2003R2 = 6,
+        WindowsVista = 7,
+        WindowsServer2008 = 8,
+        WindowsServer2008R2 = 9,
+        Windows7 = 10,
+        WindowsServer2012 = 11,
+        Windows8 = 12,
+        Windows81 = 13,
+        WindowsServer2012R2 = 14,
+
+        /// <summary>
+        /// applies to Windows Server 2022, 2019 or 2016
+        /// </summary>
+        WindowsServer2016OrHigher = 15,
+
+        /// <summary>
+        /// applies to Windows 11 or Windows 10
+        /// </summary>
+        Windows10OrHigher = 16
+    }
 }
