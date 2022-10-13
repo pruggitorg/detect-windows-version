@@ -1,4 +1,4 @@
-# Properly detect Windows version in C# .NET – even Windows 10
+# Properly detect Windows version in C# .NET – even Windows 11
 Allows you to determine the correct Windows version, since System.Environment.OSVersion.Version in .NET Framework and .NET Core until version 4.8 respectively 3.1 returns wrong results on Windows 10. It works starting with Windows 2000 and also on Windows 11/Windows 10/Server 2022/Server 2019/Server 2016 right away.
 
 Also available on Nuget: https://www.nuget.org/packages/OSVersionExt/
