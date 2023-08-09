@@ -1,13 +1,33 @@
 ﻿using OSVersionExt;
 using OSVersionExt.Win32API;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace OSVersionExtensionTests
 {
+    internal static class Windows11Rules
+    {
+        internal const int MAJORVERSION = 10;
+        internal const int MINORVERSION = 0;
+        internal const int BUILDNUMBER = 22000;
+        internal const ProductType PRODUCTTYPE = ProductType.Workstation;
+    }
+
+    internal static class WindowsServer2022ServerRules
+    {
+        internal const int MAJORVERSION = 10;
+        internal const int MINORVERSION = 0;
+        internal const int BUILDNUMBER = 20348;
+        internal const ProductType PRODUCTTYPE = ProductType.Server;
+    }
+
+    internal static class WindowsServer2022DomainControllerRules
+    {
+        internal const int MAJORVERSION = 10;
+        internal const int MINORVERSION = 0;
+        internal const int BUILDNUMBER = 20348;
+        internal const ProductType PRODUCTTYPE = ProductType.DomainController;
+    }
+
     internal static class Windows10Rules
     {
         internal const int MAJORVERSION = 10;
@@ -15,14 +35,30 @@ namespace OSVersionExtensionTests
         internal const ProductType PRODUCTTYPE = ProductType.Workstation;
     }
 
-    internal static class WindowsServer20162019ServerRules
+    internal static class WindowsServer2019ServerRules
+    {
+        internal const int MAJORVERSION = 10;
+        internal const int MINORVERSION = 0;
+        internal const int BUILDNUMBER = 17763;
+        internal const ProductType PRODUCTTYPE = ProductType.Server;
+    }
+
+    internal static class WindowsServer2019DomainControllerRules
+    {
+        internal const int MAJORVERSION = 10;
+        internal const int MINORVERSION = 0;
+        internal const int BUILDNUMBER = 17763;
+        internal const ProductType PRODUCTTYPE = ProductType.DomainController;
+    }
+
+    internal static class WindowsServer2016ServerRules
     {
         internal const int MAJORVERSION = 10;
         internal const int MINORVERSION = 0;
         internal const ProductType PRODUCTTYPE = ProductType.Server;
     }
 
-    internal static class WindowsServer20162019DomainControllerRules
+    internal static class WindowsServer2016DomainControllerRules
     {
         internal const int MAJORVERSION = 10;
         internal const int MINORVERSION = 0;
@@ -110,7 +146,7 @@ namespace OSVersionExtensionTests
     {
         internal const int MAJORVERSION = 6;
         internal const int MINORVERSION = 0;
-        internal const ProductType PRODUCTTYPE = ProductType.Workstation;        
+        internal const ProductType PRODUCTTYPE = ProductType.Workstation;
     }
 
     /// <summary>
@@ -145,7 +181,7 @@ namespace OSVersionExtensionTests
         internal const int MINORVERSION = 2;
         internal const SuiteMask SUITEMASK = SuiteMask.VER_SUITE_WH_SERVER;
     }
-    
+
     internal static class WindowsXPProx64Rules
     {
         internal const int MAJORVERSION = 5;
@@ -157,7 +193,7 @@ namespace OSVersionExtensionTests
     internal static class WindowsXPRules
     {
         internal const int MAJORVERSION = 5;
-        internal const int MINORVERSION = 1;        
+        internal const int MINORVERSION = 1;
     }
 
     internal static class Windows2000Rules

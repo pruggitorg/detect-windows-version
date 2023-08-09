@@ -1,7 +1,7 @@
 ﻿using OSVersionExt;
 using OSVersionExt.Environment;
-using OSVersionExt.Win32API;
 using OSVersionExt.MajorVersion10;
+using OSVersionExt.Win32API;
 using System;
 using System.Runtime.InteropServices;
 using System.Security;
@@ -9,7 +9,7 @@ using System.Security;
 namespace OSVersionExtension
 {
     /// <summary>
-    /// Detects Windows version starting with Windows 2000 and also works on Windows 10/Server 2019/Server 2016 right away.
+    /// Detects Windows version starting with Windows 2000 and also works on Windows 11/ Windows 10/Server 2022/Server 2019/Server 2016 right away.
     /// </summary>
     /// <remarks>
     /// References:
@@ -54,7 +54,7 @@ namespace OSVersionExtension
             _environmentProviderDefault = new EnvironmentProvider();
 
             _win32ApiProvider = _win32ApiProviderDefault;
-            _environmentProvider = _environmentProviderDefault;            
+            _environmentProvider = _environmentProviderDefault;
         }
 
         /// <summary>
@@ -76,10 +76,16 @@ namespace OSVersionExtension
         {
             SuiteMask suiteMask = DetectWindowsVersion(_win32ApiProvider).SuiteMask;
 
-            if (MajorVersion == 10 && MinorVersion == 0 && IsWorkstation)
+            if (MajorVersion == 10 && MinorVersion == 0 && BuildNumber >= 22000 && IsWorkstation)
+                return OperatingSystem.Windows11;
+            else if (MajorVersion == 10 && MinorVersion == 0 && BuildNumber >= 20348 && IsServer)
+                return OperatingSystem.WindowsServer2022;
+            else if (MajorVersion == 10 && MinorVersion == 0 && IsWorkstation)
                 return OperatingSystem.Windows10;
+            else if (MajorVersion == 10 && MinorVersion == 0 && BuildNumber >= 17763 && IsServer)
+                return OperatingSystem.WindowsServer2019;
             else if (MajorVersion == 10 && MinorVersion == 0 && IsServer)
-                return OperatingSystem.WindowsServer20162019;
+                return OperatingSystem.WindowsServer2016;
             else if (MajorVersion == 6 && MinorVersion == 3 && IsServer)
                 return OperatingSystem.WindowsServer2012R2;
             else if (MajorVersion == 6 && MinorVersion == 3 && IsWorkstation)
@@ -129,7 +135,7 @@ namespace OSVersionExtension
         {
             _ = win32ApiProvider ?? throw new ArgumentNullException();
 
-            _win32ApiProvider = win32ApiProvider;            
+            _win32ApiProvider = win32ApiProvider;
         }
 
         /// <summary>
@@ -141,7 +147,7 @@ namespace OSVersionExtension
         {
             _ = environmentProvider ?? throw new ArgumentNullException();
 
-            _environmentProvider = environmentProvider;            
+            _environmentProvider = environmentProvider;
         }
 
         /// <summary>
@@ -157,7 +163,7 @@ namespace OSVersionExtension
         /// </summary>
         public static void SetEnvironmentProviderDefault()
         {
-            _environmentProvider = _environmentProviderDefault;            
+            _environmentProvider = _environmentProviderDefault;
         }
 
         /// <summary>
@@ -166,7 +172,7 @@ namespace OSVersionExtension
         /// <returns></returns>
         /// <exception cref="InvalidOperationException">Cannot be called on systems other than Windows 10</exception>
         public static MajorVersion10Properties MajorVersion10Properties()
-        {            
+        {
             if (MajorVersion < 10)
                 throw new InvalidOperationException("Cannot be called on systems earlier than version 10.");
 
@@ -237,8 +243,10 @@ namespace OSVersionExtension
         Windows8,
         Windows81,
         WindowsServer2012R2,
-        WindowsServer20162019,
-        Windows10
+        WindowsServer2016,
+        WindowsServer2019,
+        Windows10,
+        Windows11,
+        WindowsServer2022
     }
-
 }

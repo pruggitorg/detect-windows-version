@@ -1,17 +1,67 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Runtime.InteropServices;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OSVersionExt;
 using OSVersionExt.Win32API;
 using OSVersionExtension;
 using OSVersionExtensionTests.Mocks;
+using System.Collections.Generic;
+using System.Runtime.InteropServices;
 
 namespace OSVersionExtensionTests
 {
     [TestClass]
     public class OSDetectionTests
     {
+        [DataTestMethod]
+        [DataRow(Windows11Rules.MAJORVERSION, Windows11Rules.MINORVERSION, Windows11Rules.BUILDNUMBER, Windows11Rules.PRODUCTTYPE)]
+        public void DetectWindows11(int majorVersion, int minorVersion, int buildNumber, ProductType productType)
+        {
+            // arrange            
+            var osVersionInfoMock = new OSVERSIONINFOEX
+            {
+                OSVersionInfoSize = Marshal.SizeOf(typeof(OSVERSIONINFOEX)),
+                MajorVersion = majorVersion,
+                MinorVersion = minorVersion,
+                BuildNumber = buildNumber,
+                ProductType = productType
+            };
+
+            Win32ApiProviderMock win32ApiProviderMock = new Win32ApiProviderMock(osVersionInfoMock);
+            OSVersion.SetWin32ApiProvider(win32ApiProviderMock);
+
+            // act
+            OperatingSystem operatingSystem = OSVersion.GetOperatingSystem();
+
+            // assert
+            Assert.AreEqual(OperatingSystem.Windows11, operatingSystem);
+        }
+
+        [DataTestMethod]
+        [DataRow(WindowsServer2022ServerRules.MAJORVERSION, WindowsServer2022ServerRules.MINORVERSION,
+            WindowsServer2022ServerRules.BUILDNUMBER, WindowsServer2022ServerRules.PRODUCTTYPE)]
+        [DataRow(WindowsServer2022DomainControllerRules.MAJORVERSION, WindowsServer2022DomainControllerRules.MINORVERSION,
+            WindowsServer2022DomainControllerRules.BUILDNUMBER, WindowsServer2022DomainControllerRules.PRODUCTTYPE)]
+        public void DetectWindowsServer2022(int majorVersion, int minorVersion, int buildNumber, ProductType productType)
+        {
+            // arrange            
+            var osVersionInfoMock = new OSVERSIONINFOEX
+            {
+                OSVersionInfoSize = Marshal.SizeOf(typeof(OSVERSIONINFOEX)),
+                MajorVersion = majorVersion,
+                MinorVersion = minorVersion,
+                BuildNumber = buildNumber,
+                ProductType = productType
+            };
+
+            Win32ApiProviderMock win32ApiProviderMock = new Win32ApiProviderMock(osVersionInfoMock);
+            OSVersion.SetWin32ApiProvider(win32ApiProviderMock);
+
+            // act
+            OperatingSystem operatingSystem = OSVersion.GetOperatingSystem();
+
+            // assert
+            Assert.AreEqual(OperatingSystem.WindowsServer2022, operatingSystem);
+        }
+
         [DataTestMethod]
         [DataRow(Windows10Rules.MAJORVERSION, Windows10Rules.MINORVERSION, Windows10Rules.PRODUCTTYPE)]
         public void DetectWindows10(int majorVersion, int minorVersion, ProductType productType)
@@ -33,13 +83,39 @@ namespace OSVersionExtensionTests
             Assert.AreEqual(OSVersionExtension.OperatingSystem.Windows10, operatingSystem);
         }
 
+        [DataTestMethod]
+        [DataRow(WindowsServer2019ServerRules.MAJORVERSION, WindowsServer2019ServerRules.MINORVERSION,
+           WindowsServer2019ServerRules.BUILDNUMBER, WindowsServer2019ServerRules.PRODUCTTYPE)]
+        [DataRow(WindowsServer2019DomainControllerRules.MAJORVERSION, WindowsServer2019DomainControllerRules.MINORVERSION,
+           WindowsServer2019DomainControllerRules.BUILDNUMBER, WindowsServer2019DomainControllerRules.PRODUCTTYPE)]
+        public void DetectWindowsServer2019(int majorVersion, int minorVersion, int buildNumber, ProductType productType)
+        {
+            // arrange            
+            var osVersionInfoMock = new OSVERSIONINFOEX
+            {
+                OSVersionInfoSize = Marshal.SizeOf(typeof(OSVERSIONINFOEX)),
+                MajorVersion = majorVersion,
+                MinorVersion = minorVersion,
+                BuildNumber = buildNumber,
+                ProductType = productType
+            };
+
+            Win32ApiProviderMock win32ApiProviderMock = new Win32ApiProviderMock(osVersionInfoMock);
+            OSVersion.SetWin32ApiProvider(win32ApiProviderMock);
+
+            // act
+            OperatingSystem operatingSystem = OSVersion.GetOperatingSystem();
+
+            // assert
+            Assert.AreEqual(OperatingSystem.WindowsServer2019, operatingSystem);
+        }
 
         [DataTestMethod]
-        [DataRow(WindowsServer20162019ServerRules.MAJORVERSION, WindowsServer20162019ServerRules.MINORVERSION,
-            WindowsServer20162019ServerRules.PRODUCTTYPE)]
-        [DataRow(WindowsServer20162019DomainControllerRules.MAJORVERSION, WindowsServer20162019DomainControllerRules.MINORVERSION,
-            WindowsServer20162019DomainControllerRules.PRODUCTTYPE)]
-        public void DetectWindowsServer20162019(int majorVersion, int minorVersion, ProductType productType)
+        [DataRow(WindowsServer2016ServerRules.MAJORVERSION, WindowsServer2016ServerRules.MINORVERSION,
+            WindowsServer2016ServerRules.PRODUCTTYPE)]
+        [DataRow(WindowsServer2016DomainControllerRules.MAJORVERSION, WindowsServer2016DomainControllerRules.MINORVERSION,
+            WindowsServer2016DomainControllerRules.PRODUCTTYPE)]
+        public void DetectWindowsServer2016(int majorVersion, int minorVersion, ProductType productType)
         {
             // arrange            
             var osVersionInfoMock = new OSVERSIONINFOEX { OSVersionInfoSize = Marshal.SizeOf(typeof(OSVERSIONINFOEX)) };
@@ -55,7 +131,7 @@ namespace OSVersionExtensionTests
             OSVersionExtension.OperatingSystem operatingSystem = OSVersion.GetOperatingSystem();
 
             // assert
-            Assert.AreEqual(OSVersionExtension.OperatingSystem.WindowsServer20162019, operatingSystem);
+            Assert.AreEqual(OSVersionExtension.OperatingSystem.WindowsServer2016, operatingSystem);
         }
 
         [DataTestMethod]
@@ -393,7 +469,7 @@ namespace OSVersionExtensionTests
         }
 
         [DataTestMethod]
-        [DataRow(112233,0)]
+        [DataRow(112233, 0)]
         [DataRow(0, 112233)]
         public void UnknownWindowsOnUnknownVersionInformation(int majorVersion, int minorVersion)
         {
@@ -414,7 +490,7 @@ namespace OSVersionExtensionTests
         }
 
         [DataTestMethod]
-        [DataRow(0, 0)]        
+        [DataRow(0, 0)]
         public void UnknownWindowsWhenVersionHasZeroValues(int majorVersion, int minorVersion)
         {
             // arrange            

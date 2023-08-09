@@ -1,5 +1,5 @@
-# Properly detect Windows version in C# .NET – even Windows 10
-Allows you to determine the correct Windows version, since System.Environment.OSVersion.Version in .NET Framework and .NET Core until version 4.8 respectively 3.1 returns wrong results on Windows 10. It works starting with Windows 2000 and also on Windows 10/Server 2019/Server 2016 right away.
+# Properly detect Windows version in C# .NET – even Windows 11
+Allows you to determine the correct Windows version, since System.Environment.OSVersion.Version in .NET Framework and .NET Core until version 4.8 respectively 3.1 returns wrong results on Windows 10. It works starting with Windows 2000 and also on Windows 11/Windows 10/Server 2022/Server 2019/Server 2016 right away.
 
 Also available on Nuget: https://www.nuget.org/packages/OSVersionExt/
 
@@ -49,16 +49,21 @@ The class can return the OS as an enum.
         WindowsServer2012,
         Windows8,
         Windows81,
-        WindowsServer2012R2,    
-        WindowsServer20162019,  
-        Windows10               
+        WindowsServer2012R2,
+        WindowsServer2016,
+        WindowsServer2019,
+        Windows10,
+        Windows11,
+        WindowsServer2022
     }
 ```
 
 | Operating system  | tested | remarks |
 | ------------- | ------------- | -------------  |
+| Windows 11  | yes  |   |
+| Windows Server 2022  | yes  |   |
 | Windows 10  | yes  | 21H2 (build 19044), 21H1 (build 19043), 2009/20H2 (build 19042), 2004 (build 19041), 1909 (build 18363), 1903 (build 18362), 1809 (build 17763) - all x64  |
-| Windows Server 2019  |yes  |   |
+| Windows Server 2019  | yes  |   |
 | Windows Server 2016  | yes  |   |
 | Windows Server 2012 R2  | yes  |   |
 | Windows 8.1  | yes  | x64  |
