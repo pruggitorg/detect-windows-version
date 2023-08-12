@@ -7,7 +7,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("OSVersionExtensionTests")]
-[assembly: AssemblyCopyright("Copyright © 2019-2024 Stefan Prugg")]
+[assembly: AssemblyCopyright("Copyright © 2019-2023 Stefan Prugg")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
