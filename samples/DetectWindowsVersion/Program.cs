@@ -24,10 +24,10 @@ namespace DetectWindowsVersion
             Console.WriteLine($"64-Bit OS: {OSVersion.Is64BitOperatingSystem}");
 
             if (OSVersion.GetOSVersion().Version.Major >= 10)
-            {
-                Console.WriteLine($"Windows Release ID: {OSVersion.MajorVersion10Properties().ReleaseId ?? "(Unable to detect)"}");
+            {                
                 Console.WriteLine($"Windows Display Version: {OSVersion.MajorVersion10Properties().DisplayVersion ?? "(Unable to detect)"}");
                 Console.WriteLine($"Windows Update Build Revision: {OSVersion.MajorVersion10Properties().UBR ?? "(Unable to detect)"}");
+                Console.WriteLine($"Windows Release ID: {OSVersion.MajorVersion10Properties().ReleaseId ?? "(Unable to detect)"}");
             }
 
             Console.ReadKey();
