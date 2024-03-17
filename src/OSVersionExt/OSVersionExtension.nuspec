@@ -8,9 +8,9 @@
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <license type="expression">MIT</license>
     <!-- <icon>icon.png</icon> -->
-    <projectUrl>https://github.com/pruggitorg/detect-windows-version</projectUrl>
+    <projectUrl>https://github.com/xafero/detect-windows-version</projectUrl>
     <description>$description$</description>
-    <releaseNotes>Updated project to .NET Framework 4.6.2</releaseNotes>
+    <releaseNotes>Updated project to .NET Framework 4.8.1</releaseNotes>
     <copyright>$copyright$</copyright>
     <tags>windows version</tags>   
   </metadata>

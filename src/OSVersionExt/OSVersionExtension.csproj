@@ -1,7 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net462;netstandard2.0</TargetFrameworks>
+    <TargetFrameworks>net481;netstandard2.0</TargetFrameworks>
+    <RootNamespace>OSVersionExt</RootNamespace>
   </PropertyGroup>
 
   <PropertyGroup>
