@@ -13,4 +13,25 @@
     <PackageReference Include="Microsoft.Win32.Registry" Version="5.0.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Include="..\..\README.md" Pack="true" PackagePath="" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <PackageId>OSVersionExt.NetStd</PackageId>
+    <Version>3.0.1</Version>
+    <Title>OSVersionExt</Title>
+    <Authors>Stefan Prugg</Authors>
+    <Copyright>Copyright © 2023 Stefan Prugg under MIT license</Copyright>
+    <Description>Detect Windows version in C# .NET Framework - – Windows 2000 to Windows 11</Description>
+    <PackageTags>windows version</PackageTags>
+    <RepositoryType>git</RepositoryType>
+    <RepositoryUrl>https://github.com/xafero/detect-windows-version</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/xafero/detect-windows-version</PackageProjectUrl>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageReleaseNotes>Updated project to .NET Standard 2.0 and tested with .NET 8.0</PackageReleaseNotes>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+  </PropertyGroup>
+
 </Project>
