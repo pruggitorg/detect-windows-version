@@ -12,7 +12,7 @@ namespace OSVersionExtensionTests
         {
             Action setWin32ApiProvider = () => OSVersion.SetWin32ApiProvider(null);
 
-            Assert.ThrowsException<ArgumentNullException>(setWin32ApiProvider);
+            Assert.Throws<ArgumentNullException>(setWin32ApiProvider);
         }
 
         [TestMethod]
@@ -20,7 +20,7 @@ namespace OSVersionExtensionTests
         {
             Action setEnvironmentProvider = () => OSVersion.SetEnvironmentProvider(null);
 
-            Assert.ThrowsException<ArgumentNullException>(setEnvironmentProvider);
+            Assert.Throws<ArgumentNullException>(setEnvironmentProvider);
         }
 
     }
