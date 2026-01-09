@@ -1,6 +1,13 @@
 # Properly detect Windows version in C# .NET – even Windows 11
 Allows you to determine the correct Windows version, since System.Environment.OSVersion.Version in .NET Framework and .NET Core until version 4.8 respectively 3.1 returns wrong results on Windows 10. It works starting with Windows 2000 and also on Windows 11/Windows 10/Server 2022/Server 2019/Server 2016 right away.
 
+# Windows Version & Edition Detection Library
+
+Determining the Windows version and edition can be challenging in modern .NET applications. Since .NET Framework until 4.8.1 and .NET Core 3.1, the System.Environment.OSVersion.Version for retrieving Windows version information no longer return reliable results on Windows 10 and later. In addition, correctly identifying the Windows edition—such as distinguishing between Windows 10 and Windows 11—adds another layer of complexity.
+
+This library abstracts all of these challenges and provides a reliable way to detect the current Windows version and edition. It handles the necessary platform-specific logic internally and exposes the result in a clear and consistent manner. To further simplify usage in applications, the library returns the identified Windows version as a strongly typed enum, making it easier to integrate version-specific logic and maintain clean, readable code.
+
+
 Also available on Nuget: https://www.nuget.org/packages/OSVersionExt/
 
 <img src="images/windows10-version-demo.png">
@@ -81,7 +88,15 @@ The class can return the OS as an enum.
 
 
 # Target framework
-NET Framework 4.6.2 (as one of the checks calls Environment.Is64BitOperatingSystem). Yet, you can inject your own environment provider, which runs on lower versions.
+This package targets .NET Standard 2.0, ensuring broad cross-platform compatibility. By using .NET Standard, the library can be consumed by multiple .NET implementations, including:
+
+* .NET Framework (version 4.6.1 and later)
+* .NET Core (version 2.0 and later)
+* .NET 5+
+
+This makes the class usable across different environments without modification, providing maximum flexibility for developers building applications on various platforms.
+For more details on .NET Standard and supported platforms, please refer to the official documentation:
+https://learn.microsoft.com/en-us/dotnet/standard/net-standard#?tabs=net-standard-2-0
 
 # Technical information
 Please refer to https://www.prugg.at/2019/09/09/properly-detect-windows-version-in-c-net-even-windows-10/
