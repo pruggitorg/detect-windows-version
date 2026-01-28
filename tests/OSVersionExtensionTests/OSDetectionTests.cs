@@ -11,7 +11,7 @@ namespace OSVersionExtensionTests
     [TestClass]
     public class OSDetectionTests
     {
-        [DataTestMethod]
+        [TestMethod]
         [DataRow(Windows11Rules.MAJORVERSION, Windows11Rules.MINORVERSION, Windows11Rules.BUILDNUMBER, Windows11Rules.PRODUCTTYPE)]
         public void DetectWindows11(int majorVersion, int minorVersion, int buildNumber, ProductType productType)
         {
@@ -35,7 +35,7 @@ namespace OSVersionExtensionTests
             Assert.AreEqual(OperatingSystem.Windows11, operatingSystem);
         }
 
-        [DataTestMethod]
+        [TestMethod]
         [DataRow(WindowsServer2022ServerRules.MAJORVERSION, WindowsServer2022ServerRules.MINORVERSION,
             WindowsServer2022ServerRules.BUILDNUMBER, WindowsServer2022ServerRules.PRODUCTTYPE)]
         [DataRow(WindowsServer2022DomainControllerRules.MAJORVERSION, WindowsServer2022DomainControllerRules.MINORVERSION,
@@ -62,7 +62,7 @@ namespace OSVersionExtensionTests
             Assert.AreEqual(OperatingSystem.WindowsServer2022, operatingSystem);
         }
 
-        [DataTestMethod]
+        [TestMethod]
         [DataRow(Windows10Rules.MAJORVERSION, Windows10Rules.MINORVERSION, Windows10Rules.PRODUCTTYPE)]
         public void DetectWindows10(int majorVersion, int minorVersion, ProductType productType)
         {
@@ -83,7 +83,7 @@ namespace OSVersionExtensionTests
             Assert.AreEqual(OSVersionExtension.OperatingSystem.Windows10, operatingSystem);
         }
 
-        [DataTestMethod]
+        [TestMethod]
         [DataRow(WindowsServer2019ServerRules.MAJORVERSION, WindowsServer2019ServerRules.MINORVERSION,
            WindowsServer2019ServerRules.BUILDNUMBER, WindowsServer2019ServerRules.PRODUCTTYPE)]
         [DataRow(WindowsServer2019DomainControllerRules.MAJORVERSION, WindowsServer2019DomainControllerRules.MINORVERSION,
@@ -110,7 +110,7 @@ namespace OSVersionExtensionTests
             Assert.AreEqual(OperatingSystem.WindowsServer2019, operatingSystem);
         }
 
-        [DataTestMethod]
+        [TestMethod]
         [DataRow(WindowsServer2016ServerRules.MAJORVERSION, WindowsServer2016ServerRules.MINORVERSION,
             WindowsServer2016ServerRules.PRODUCTTYPE)]
         [DataRow(WindowsServer2016DomainControllerRules.MAJORVERSION, WindowsServer2016DomainControllerRules.MINORVERSION,
@@ -134,7 +134,7 @@ namespace OSVersionExtensionTests
             Assert.AreEqual(OSVersionExtension.OperatingSystem.WindowsServer2016, operatingSystem);
         }
 
-        [DataTestMethod]
+        [TestMethod]
         [DataRow(WindowsServer2012R2ServerRules.MAJORVERSION, WindowsServer2012R2ServerRules.MINORVERSION,
             WindowsServer2012R2ServerRules.PRODUCTTYPE)]
         [DataRow(WindowsServer2012R29DomainControllerRules.MAJORVERSION, WindowsServer2012R29DomainControllerRules.MINORVERSION,
@@ -158,7 +158,7 @@ namespace OSVersionExtensionTests
             Assert.AreEqual(OSVersionExtension.OperatingSystem.WindowsServer2012R2, operatingSystem);
         }
 
-        [DataTestMethod]
+        [TestMethod]
         [DataRow(Windows81Rules.MAJORVERSION, Windows81Rules.MINORVERSION, Windows81Rules.PRODUCTTYPE)]
         public void DetectWindows81(int majorVersion, int minorVersion, ProductType productType)
         {
@@ -179,7 +179,7 @@ namespace OSVersionExtensionTests
             Assert.AreEqual(OSVersionExtension.OperatingSystem.Windows81, operatingSystem);
         }
 
-        [DataTestMethod]
+        [TestMethod]
         [DataRow(Windows8Rules.MAJORVERSION, Windows8Rules.MINORVERSION, Windows8Rules.PRODUCTTYPE)]
         public void DetectWindows8(int majorVersion, int minorVersion, ProductType productType)
         {
@@ -200,7 +200,7 @@ namespace OSVersionExtensionTests
             Assert.AreEqual(OSVersionExtension.OperatingSystem.Windows8, operatingSystem);
         }
 
-        [DataTestMethod]
+        [TestMethod]
         [DataRow(WindowsServer2012ServerRules.MAJORVERSION, WindowsServer2012ServerRules.MINORVERSION,
             WindowsServer2012ServerRules.PRODUCTTYPE)]
         [DataRow(WindowsServer2012DomainControllerRules.MAJORVERSION, WindowsServer2012DomainControllerRules.MINORVERSION,
@@ -224,7 +224,7 @@ namespace OSVersionExtensionTests
             Assert.AreEqual(OSVersionExtension.OperatingSystem.WindowsServer2012, operatingSystem);
         }
 
-        [DataTestMethod]
+        [TestMethod]
         [DataRow(Windows7Rules.MAJORVERSION, Windows7Rules.MINORVERSION, Windows7Rules.PRODUCTTYPE)]
         public void DetectWindows7(int majorVersion, int minorVersion, ProductType productType)
         {
@@ -245,7 +245,7 @@ namespace OSVersionExtensionTests
             Assert.AreEqual(OSVersionExtension.OperatingSystem.Windows7, operatingSystem);
         }
 
-        [DataTestMethod]
+        [TestMethod]
         [DataRow(WindowsServer2008R2ServerRules.MAJORVERSION, WindowsServer2008R2ServerRules.MINORVERSION,
             WindowsServer2008R2ServerRules.PRODUCTTYPE)]
         [DataRow(WindowsServer2008R2DomainControllerRules.MAJORVERSION, WindowsServer2008R2DomainControllerRules.MINORVERSION,
@@ -269,7 +269,7 @@ namespace OSVersionExtensionTests
             Assert.AreEqual(OSVersionExtension.OperatingSystem.WindowsServer2008R2, operatingSystem);
         }
 
-        [DataTestMethod]
+        [TestMethod]
         [DataRow(WindowsServer2008ServerRules.MAJORVERSION, WindowsServer2008ServerRules.MINORVERSION,
             WindowsServer2008ServerRules.PRODUCTTYPE)]
         [DataRow(WindowsServer2008DomainControllerRules.MAJORVERSION, WindowsServer2008DomainControllerRules.MINORVERSION,
@@ -293,7 +293,7 @@ namespace OSVersionExtensionTests
             Assert.AreEqual(OSVersionExtension.OperatingSystem.WindowsServer2008, operatingSystem);
         }
 
-        [DataTestMethod]
+        [TestMethod]
         [DataRow(WindowsVistaRules.MAJORVERSION, WindowsVistaRules.MINORVERSION, WindowsVistaRules.PRODUCTTYPE)]
         public void DetectWindowsVista(int majorVersion, int minorVersion, ProductType productType)
         {
@@ -322,7 +322,7 @@ namespace OSVersionExtensionTests
         /// <param name="minorVersion"></param>
         /// <param name="productType"></param>
         /// <remarks>https://docs.microsoft.com/en-us/windows/win32/api/winnt/ns-winnt-osversioninfoexa</remarks>
-        [DataTestMethod]
+        [TestMethod]
         [DataRow(WindowsServer2003R2Rules.MAJORVERSION, WindowsServer2003R2Rules.MINORVERSION, WindowsServer2003R2Rules.PRODUCTTYPE)]
         public void DetectWindowsServer2003R2(int majorVersion, int minorVersion, ProductType productType)
         {
@@ -353,7 +353,7 @@ namespace OSVersionExtensionTests
         /// <param name="minorVersion"></param>
         /// <param name="productType"></param>
         /// <remarks>https://docs.microsoft.com/en-us/windows/win32/api/winnt/ns-winnt-osversioninfoexa</remarks>
-        [DataTestMethod]
+        [TestMethod]
         [DataRow(WindowsServer2003Rules.MAJORVERSION, WindowsServer2003Rules.MINORVERSION, WindowsServer2003Rules.PRODUCTTYPE)]
         public void DetectWindowsServer2003(int majorVersion, int minorVersion, ProductType productType)
         {
@@ -377,7 +377,7 @@ namespace OSVersionExtensionTests
         }
 
 
-        [DataTestMethod]
+        [TestMethod]
         [DataRow(WindowsNomeServerRules.MAJORVERSION, WindowsNomeServerRules.MINORVERSION, WindowsNomeServerRules.SUITEMASK)]
         public void DetectWindowsHomeServer(int majorVersion, int minorVersion, SuiteMask suiteMask)
         {
@@ -405,7 +405,7 @@ namespace OSVersionExtensionTests
         /// <param name="majorVersion"></param>
         /// <param name="minorVersion"></param>
         /// <param name="productType"></param>        
-        [DataTestMethod]
+        [TestMethod]
         [DataRow(WindowsXPProx64Rules.MAJORVERSION, WindowsXPProx64Rules.MINORVERSION, WindowsXPProx64Rules.PRODUCTTYPE, WindowsXPProx64Rules.IS64BITOPERATINGSYSTEM)]
         public void DetectWindowsXPProx64(int majorVersion, int minorVersion, ProductType productType, bool is64BitOperatingSystem)
         {
@@ -428,7 +428,7 @@ namespace OSVersionExtensionTests
             Assert.AreEqual(OSVersionExtension.OperatingSystem.WindowsXPProx64, operatingSystem);
         }
 
-        [DataTestMethod]
+        [TestMethod]
         [DataRow(WindowsXPRules.MAJORVERSION, WindowsXPRules.MINORVERSION)]
         public void DetectWindowsXP(int majorVersion, int minorVersion)
         {
@@ -448,7 +448,7 @@ namespace OSVersionExtensionTests
             Assert.AreEqual(OSVersionExtension.OperatingSystem.WindowsXP, operatingSystem);
         }
 
-        [DataTestMethod]
+        [TestMethod]
         [DataRow(Windows2000Rules.MAJORVERSION, Windows2000Rules.MINORVERSION)]
         public void DetectWindows2000(int majorVersion, int minorVersion)
         {
@@ -468,7 +468,7 @@ namespace OSVersionExtensionTests
             Assert.AreEqual(OSVersionExtension.OperatingSystem.Windows2000, operatingSystem);
         }
 
-        [DataTestMethod]
+        [TestMethod]
         [DataRow(112233, 0)]
         [DataRow(0, 112233)]
         public void UnknownWindowsOnUnknownVersionInformation(int majorVersion, int minorVersion)
@@ -489,7 +489,7 @@ namespace OSVersionExtensionTests
             Assert.AreEqual(OSVersionExtension.OperatingSystem.Unknown, operatingSystem);
         }
 
-        [DataTestMethod]
+        [TestMethod]
         [DataRow(0, 0)]
         public void UnknownWindowsWhenVersionHasZeroValues(int majorVersion, int minorVersion)
         {
