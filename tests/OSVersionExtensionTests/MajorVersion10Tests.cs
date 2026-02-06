@@ -66,7 +66,7 @@ namespace OSVersionExtensionTests
         //
         #endregion
         
-        [DataTestMethod]
+        [TestMethod]
         [DataRow("1909", "1256")]
         [DataRow("2009", "685")]
         public void EnsureBasicReadingInRegistry(string expectedReleaseId, string expectedUbr)
@@ -86,7 +86,7 @@ namespace OSVersionExtensionTests
             Assert.AreEqual(expectedUbr, majorVersion10Properties.UBR);
         }
 
-        [DataTestMethod]        
+        [TestMethod]        
         [DataRow("2009", "685", "20H2")]
         public void EnsureBasicReadingInRegistryWithDisplayVersion(string expectedReleaseId, string expectedUbr, string expectedDisplayVersion)
         {
@@ -153,7 +153,7 @@ namespace OSVersionExtensionTests
             Assert.IsNull(majorVersion10Properties.UBR);
         }
 
-        [DataTestMethod]
+        [TestMethod]
         [DataRow("2009", "685")]
         [DataRow("2004", "685")]
         [DataRow("1909", "1256")]
