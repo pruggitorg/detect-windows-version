@@ -84,16 +84,16 @@ Registry values return `null` if not found (e.g., `DisplayVersion` on older buil
 - **GitHub Repo**: https://github.com/pruggitorg/detect-windows-version
 
 ## Testing Strategy
-MSTest framework with focus on provider injection tests. Avoid assuming specific Windows version in unit tests — use mocked providers. Example:
+MSTest framework with focus on provider injection tests. Avoid assuming specific Windows version in unit tests — use mocked providers.
+
 ```csharp
-[TestMethod]
-public void EnsureNullWin32ApiProviderThrows()
-{
-    Assert.Throws<ArgumentNullException>(() => OSVersion.SetWin32ApiProvider(null));
-}
+public class EnvironmentProviderMock : IEnvironment
+public class RegistryProviderMock : IRegistry
+public class Win32ApiProviderMock : IWin32API
 ```
+
 
 ## Common Pitfalls
 1. **Incorrect OSVersion on Win10+** — This library exists because .NET's built-in `System.Environment.OSVersion.Version` returns (6, 2) on Windows 10+; always use `OSVersion.GetOperatingSystem()` instead.
 2. **Build Number Boundaries** — Win11/Server2022 detection pivots on specific build thresholds; verify bounds in [windows-version-detection-rules.md](docs/windows-version-detection-rules.md) before changing.
-3. **Registry Access on Non-Windows** — `MajorVersion10Properties()` only safe on Win10+; throws `InvalidOperationException` if called on older versions.
+3. **Registry Access** — `MajorVersion10Properties()` only safe on Win10+; throws `InvalidOperationException` if called on older versions.
