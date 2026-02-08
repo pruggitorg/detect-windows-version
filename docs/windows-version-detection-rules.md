@@ -2,12 +2,11 @@
 
 The table below shows the criteria used to determine the individual Windows editions. 
 
-$~$
-
 ## Getting the Windows edition
 
 | Windows Edition  | enum OperatingSystem  | Detection Rule |
 | -------------         | -------------         | ------------- |
+| Windows Server 2025   | WindowsServer2025     | MajorVersion == 10 && MinorVersion == 0 && BuildNumber >= 26100 && IsServer
 | Windows 11            | Windows11             | MajorVersion == 10 && MinorVersion == 0 && BuildNumber >= 22000 && IsWorkstation
 | Windows 10            | Windows10             | MajorVersion == 10 && MinorVersion == 0 && IsWorkstation
 | Windows Server 2022   | WindowsServer2022		| MajorVersion == 10 && MinorVersion == 0 && BuildNumber >= 20348 && IsServer
