@@ -4,6 +4,22 @@ using System.Collections.Generic;
 
 namespace OSVersionExtensionTests
 {
+    internal static class WindowsServer2025ServerRules
+    {
+        internal const int MAJORVERSION = 10;
+        internal const int MINORVERSION = 0;
+        internal const int BUILDNUMBER = 26100;
+        internal const ProductType PRODUCTTYPE = ProductType.Server;
+    }
+
+    internal static class WindowsServer2025DomainControllerRules
+    {
+        internal const int MAJORVERSION = 10;
+        internal const int MINORVERSION = 0;
+        internal const int BUILDNUMBER = 26100;
+        internal const ProductType PRODUCTTYPE = ProductType.DomainController;
+    }
+
     internal static class Windows11Rules
     {
         internal const int MAJORVERSION = 10;

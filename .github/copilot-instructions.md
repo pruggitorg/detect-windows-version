@@ -44,6 +44,22 @@ See [windows-version-detection-rules.md](docs/windows-version-detection-rules.md
 - **tests/OSVersionExtensionTests/** — MSTest unit tests (targets net481 + net8.0)
 - **Example/** + **samples/** — Example applications using the library
 
+## File Organization - Detailed Enum & Class Locations
+When searching for specific types, use these exact locations:
+- **Win32 API Enums & Structs** → `src/OSVersionExt/Win32API/Win32ApiEnums.cs`
+  - `ProductType` enum — Workstation, Server, DomainController
+  - `SuiteMask` enum — VER_SUITE_* flags for Windows editions
+  - `NTSTATUS` enum — Win32 API return codes
+  - `SystemMetric` enum — GetSystemMetrics identifiers
+  - `OSVERSIONINFOEX` struct — Version information from RtlGetVersion()
+- **Test Rules** → `tests/OSVersionExtensionTests/OSDetectionRules.cs`
+  - All `*Rules` static classes (e.g., `Windows11Rules`, `WindowsServer2025ServerRules`)
+  - Contains constants: MAJORVERSION, MINORVERSION, BUILDNUMBER, PRODUCTTYPE, etc.
+- **Test Mocks** → `tests/OSVersionExtensionTests/Mocks/`
+  - `Win32ApiProviderMock` — Mocks IWin32API
+  - `EnvironmentProviderMock` — Mocks IEnvironment
+  - `RegistryProviderMock` — Mocks IRegistry
+
 ## Build & Test Commands
 ```bash
 # Build library (targets netstandard2.0)
@@ -97,3 +113,31 @@ public class Win32ApiProviderMock : IWin32API
 1. **Incorrect OSVersion on Win10+** — This library exists because .NET's built-in `System.Environment.OSVersion.Version` returns (6, 2) on Windows 10+; always use `OSVersion.GetOperatingSystem()` instead.
 2. **Build Number Boundaries** — Win11/Server2022 detection pivots on specific build thresholds; verify bounds in [windows-version-detection-rules.md](docs/windows-version-detection-rules.md) before changing.
 3. **Registry Access** — `MajorVersion10Properties()` only safe on Win10+; throws `InvalidOperationException` if called on older versions.
+
+## Adding New Operating System Support
+When adding support for a new Windows version, always update **all** of the following files in this order:
+
+1. **src/OSVersionExt/OSVersion.cs**
+   - Add new enum value to `OperatingSystem` enum
+   - Add detection logic to `GetOperatingSystem()` method (place check **before** similar versions to ensure correct cascading order)
+   - Follow the existing pattern: check MajorVersion, MinorVersion, BuildNumber (if needed), and ProductType
+
+2. **tests/OSVersionExtensionTests/OSDetectionRules.cs**
+   - Add `*Rules` static class(es) for each variant (e.g., `WindowsServer2025ServerRules`, `WindowsServer2025DomainControllerRules`)
+   - Define constants: `MAJORVERSION`, `MINORVERSION`, `BUILDNUMBER` (if applicable), `PRODUCTTYPE`
+   - If multiple ProductType variants exist (Server, DomainController), create separate rule classes for each
+
+3. **tests/OSVersionExtensionTests/OSDetectionTests.cs**
+   - Add test method with `[TestMethod]` and `[DataRow]` attributes for each variant
+   - Follow the existing pattern and naming convention: `DetectWindowsServer2025()`
+   - Include both Server and DomainController ProductType variants if applicable
+
+4. **docs/windows-version-detection-rules.md**
+   - Add entry to the detection rules table with exact version info and detection criteria
+
+5. **README.md** (Critical!)
+   - Add new `OperatingSystem` enum value to the code example
+   - Add row to "List of detected operating systems" table with version details and test status
+   - Keep the table sorted by release date (newest first)
+
+**Example**: When adding Windows Server 2025 support, update all 5 files above. Do NOT skip the README.md — it must reflect the current enum values.

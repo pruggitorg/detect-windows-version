@@ -76,7 +76,9 @@ namespace OSVersionExtension
         {
             SuiteMask suiteMask = DetectWindowsVersion(_win32ApiProvider).SuiteMask;
 
-            if (MajorVersion == 10 && MinorVersion == 0 && BuildNumber >= 22000 && IsWorkstation)
+            if (MajorVersion == 10 && MinorVersion == 0 && BuildNumber >= 26100 && IsServer)
+                return OperatingSystem.WindowsServer2025;
+            else if (MajorVersion == 10 && MinorVersion == 0 && BuildNumber >= 22000 && IsWorkstation)
                 return OperatingSystem.Windows11;
             else if (MajorVersion == 10 && MinorVersion == 0 && BuildNumber >= 20348 && IsServer)
                 return OperatingSystem.WindowsServer2022;
@@ -247,6 +249,7 @@ namespace OSVersionExtension
         WindowsServer2019,
         Windows10,
         Windows11,
-        WindowsServer2022
+        WindowsServer2022,
+        WindowsServer2025
     }
 }
