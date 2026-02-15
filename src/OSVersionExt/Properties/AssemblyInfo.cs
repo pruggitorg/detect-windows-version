@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("OSVersionExt")]
-[assembly: AssemblyDescription("Detect Windows version in C# .NET Framework - – Windows 2000 to Windows 11")]
+[assembly: AssemblyDescription("Detect Windows version – Windows 11, Windows 2025 Server and earlier versions")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Stefan Prugg")]
 [assembly: AssemblyProduct("")]
@@ -32,5 +32,5 @@ using System.Runtime.InteropServices;
 // You can specify all the values or you can default the Build and Revision Numbers
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("3.0.0.0")]
-[assembly: AssemblyFileVersion("3.0.0.0")]
+[assembly: AssemblyVersion("4.1.0.0")]
+[assembly: AssemblyFileVersion("4.1.0.0")]

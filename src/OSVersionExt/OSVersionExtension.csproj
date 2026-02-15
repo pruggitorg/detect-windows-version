@@ -19,18 +19,18 @@
 
   <PropertyGroup>
     <PackageId>OSVersionExt</PackageId>
-    <Version>4.0.0</Version>
+    <Version>4.1.0</Version>
     <Title>OSVersionExt</Title>
     <Authors>Stefan Prugg</Authors>
     <Copyright>Copyright © 2023 Stefan Prugg under MIT license</Copyright>
-    <Description>Detect Windows version in C# – Windows 2000 to Windows 11</Description>
+    <Description>Detect Windows version – Windows 11, Windows 2025 Server and earlier versions.</Description>
     <PackageTags>windows version</PackageTags>
     <RepositoryType>git</RepositoryType>
     <RepositoryUrl>https://github.com/pruggitorg/detect-windows-version</RepositoryUrl>
     <PackageProjectUrl>https://github.com/pruggitorg/detect-windows-version</PackageProjectUrl>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <PackageReleaseNotes>Updated project to .NET Standard 2.0 and tested with .NET 8.0</PackageReleaseNotes>
+    <PackageReleaseNotes>Added support for Windows 2025 Server detection.</PackageReleaseNotes>
     <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
 
