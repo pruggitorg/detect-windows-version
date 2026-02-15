@@ -12,6 +12,33 @@ namespace OSVersionExtensionTests
     public class OSDetectionTests
     {
         [TestMethod]
+        [DataRow(WindowsServer2025ServerRules.MAJORVERSION, WindowsServer2025ServerRules.MINORVERSION,
+            WindowsServer2025ServerRules.BUILDNUMBER, WindowsServer2025ServerRules.PRODUCTTYPE)]
+        [DataRow(WindowsServer2025DomainControllerRules.MAJORVERSION, WindowsServer2025DomainControllerRules.MINORVERSION,
+            WindowsServer2025DomainControllerRules.BUILDNUMBER, WindowsServer2025DomainControllerRules.PRODUCTTYPE)]
+        public void DetectWindowsServer2025(int majorVersion, int minorVersion, int buildNumber, ProductType productType)
+        {
+            // arrange            
+            var osVersionInfoMock = new OSVERSIONINFOEX
+            {
+                OSVersionInfoSize = Marshal.SizeOf(typeof(OSVERSIONINFOEX)),
+                MajorVersion = majorVersion,
+                MinorVersion = minorVersion,
+                BuildNumber = buildNumber,
+                ProductType = productType
+            };
+
+            Win32ApiProviderMock win32ApiProviderMock = new Win32ApiProviderMock(osVersionInfoMock);
+            OSVersion.SetWin32ApiProvider(win32ApiProviderMock);
+
+            // act
+            OperatingSystem operatingSystem = OSVersion.GetOperatingSystem();
+
+            // assert
+            Assert.AreEqual(OperatingSystem.WindowsServer2025, operatingSystem);
+        }
+
+        [TestMethod]
         [DataRow(Windows11Rules.MAJORVERSION, Windows11Rules.MINORVERSION, Windows11Rules.BUILDNUMBER, Windows11Rules.PRODUCTTYPE)]
         public void DetectWindows11(int majorVersion, int minorVersion, int buildNumber, ProductType productType)
         {

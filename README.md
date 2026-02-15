@@ -5,7 +5,7 @@ Determining the Windows version and edition can be challenging.
 First, the `System.Environment.OSVersion.Version` property in the .NET Framework up to version 4.8.1 and in .NET Core up to version 3.1 returns incorrect results on Windows 10 and later versions. In addition, correctly identifying the Windows edition, such as distinguishing between Windows 10 and Windows 11, adds another layer of complexity, as it requires handling build numbers.
 
 This library abstracts all of these challenges. It returns the detected Windows edition as a strongly typed enum, without the need to deal with ambiguous string representations.  
-It works out of the box on Windows 11, Windows 10, Windows Server 2022, and Windows Server 2019, and also supports earlier Windows versions.
+It works out of the box on Windows 11, Windows 10, Windows Server 2025, and Windows Server 2022, and also supports earlier Windows versions.
 
 Also available on NuGet: https://www.nuget.org/packages/OSVersionExt/
 
@@ -65,13 +65,15 @@ The class can return the OS as an enum.
         WindowsServer2019,
         Windows10,
         Windows11,
-        WindowsServer2022
+        WindowsServer2022,
+        WindowsServer2025
     }
 ```
 
-| Operating system  | tested | remarks |
+| Operating system  | verified | remarks |
 | ------------- | ------------- | -------------  |
-| Windows 11  | yes  |   |
+| Windows Server 2025  | yes  | 24H2 (build 26100)  |
+| Windows 11  | yes  | 25H2 (build 7628)  |
 | Windows Server 2022  | yes  |   |
 | Windows 10  | yes  | 21H2 (build 19044), 21H1 (build 19043), 2009/20H2 (build 19042), 2004 (build 19041), 1909 (build 18363), 1903 (build 18362), 1809 (build 17763) - all x64  |
 | Windows Server 2019  | yes  |   |
